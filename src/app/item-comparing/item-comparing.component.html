@@ -1,0 +1,165 @@
+<div class="w-100 d-flex">
+  <div #compare class="col-12 ">
+    <div class="w-100 d-flex compare-block-border">
+      <div class="d-none d-md-block col-3">
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="d-flex w-100">
+          <img #img1 [src]="selectedItem1 ? selectedItem1['imgUrl'] : '/'" class="item-img"/>
+        </div>
+        <h1 class="w-100 h1">{{selectedItem1 ? selectedItem1['name'] : '-'}}</h1>
+      </div>
+      <div class="d-none d-md-block col-1">
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="d-flex w-100">
+          <img #img2 [src]="selectedItem2 ? selectedItem2['imgUrl'] : '/'" class="item-img"/>
+        </div>
+        <h1 class="w-100 h1">{{selectedItem2 ? selectedItem2['name'] : '-'}}</h1>
+      </div>
+    </div>
+    <div class="w-100 d-flex compare-block-border">
+      <div class="d-none d-md-block col-3">
+        <h5 class="h5">Base value</h5>
+      </div>
+      <div class="col-6 col-md-4">
+        <h5><span class="d-md-none h5">Base value: </span>{{selectedItem1 ? selectedItem1['value'] : '-'}}</h5>
+      </div>
+      <div class="d-none d-md-block col-1">
+      </div>
+      <div class="col-6 col-md-4">
+        <h5><span class="d-md-none h5">Base value: </span>{{selectedItem2 ? selectedItem2['value'] : '-'}}</h5>
+      </div>
+    </div>
+    <div class="w-100 d-flex compare-block-border">
+      <div class="d-none d-md-block col-3">
+        <h5 class="h5">Armor</h5>
+      </div>
+      <div class="col-6 col-md-4">
+        <h5><span class="d-md-none h5">Armor: </span>{{selectedItem1 ? selectedItem1['armor'] : '-'}}</h5>
+      </div>
+      <div class="d-none d-md-block col-1">
+      </div>
+      <div class="col-6 col-md-4">
+        <h5><span class="d-md-none h5">Armor: </span>{{selectedItem2 ? selectedItem2['armor'] : '-'}}</h5>
+      </div>
+    </div>
+    <div class="w-100 d-flex compare-block-border">
+      <div class="d-none d-md-block col-3">
+        <h5 class="h5">Weight</h5>
+      </div>
+      <div class="col-6 col-md-4">
+        <h5><span class="d-md-none h5">Weight: </span>{{selectedItem1 ? selectedItem1['weight'] : '-'}}</h5>
+      </div>
+      <div class="d-none d-md-block col-1">
+      </div>
+      <div class="col-6 col-md-4">
+        <h5><span class="d-md-none h5">Weight: </span>{{selectedItem2 ? selectedItem2['weight'] : '-'}}</h5>
+      </div>
+    </div>
+    <div class="w-100 d-flex compare-block-border">
+      <div class="d-none d-md-block col-3">
+        <h5 class="h5">Class</h5>
+      </div>
+      <div class="col-6 col-md-4">
+        <h5><span class="d-md-none h5">Class: </span>{{selectedItem1 ? selectedItem1['class'] : '-'}}</h5>
+      </div>
+      <div class="d-none d-md-block col-1">
+      </div>
+      <div class="col-6 col-md-4">
+        <h5><span class="d-md-none h5">Class: </span>{{selectedItem2 ? selectedItem2['class'] : '-'}}</h5>
+      </div>
+    </div>
+    <div class="w-100 d-flex compare-block-border">
+      <div class="d-none d-md-block col-3">
+        <h5 class="h5">Type</h5>
+      </div>
+      <div class="col-6 col-md-4">
+        <h5><span class="d-md-none h5">Type: </span>{{selectedItem1 ? selectedItem1['type'] : '-'}}</h5>
+      </div>
+      <div class="d-none d-md-block col-1">
+      </div>
+      <div class="col-6 col-md-4">
+        <h5><span class="d-md-none h5">Type: </span>{{selectedItem2 ? selectedItem2['type'] : '-'}}</h5>
+      </div>
+    </div>
+    <div class="w-100 d-flex compare-block-border">
+      <div class="d-none d-md-block col-3">
+        <h5 class="h5">Slot</h5>
+      </div>
+      <div class="col-6 col-md-4">
+        <h5><span class="d-md-none h5">Slot: </span>{{selectedItem1 ? selectedItem1['slot'] : '-'}}</h5>
+      </div>
+      <div class="d-none d-md-block col-1">
+      </div>
+      <div class="col-6 col-md-4">
+        <h5><span class="d-md-none h5">Slot: </span>{{selectedItem2 ? selectedItem2['slot'] : '-'}}</h5>
+      </div>
+    </div>
+    <div class="w-100 d-flex compare-block-border">
+      <div class="d-none d-md-block col-3">
+        <h5 class="h5">Damage</h5>
+      </div>
+      <div class="col-6 col-md-4">
+        <h5><span class="d-md-none h5">Damage: </span>{{selectedItem1 ? selectedItem1['damage'] : '-'}}</h5>
+      </div>
+      <div class="d-none d-md-block col-1">
+      </div>
+      <div class="col-6 col-md-4">
+        <h5><span class="d-md-none h5">Damage: </span>{{selectedItem2 ? selectedItem2['damage'] : '-'}}</h5>
+      </div>
+    </div>
+    <div class="w-100 d-flex compare-block-border">
+      <div class="d-none d-md-block col-3">
+        <h5 class="h5">Level</h5>
+      </div>
+      <div class="col-6 col-md-4">
+        <h5><span class="d-md-none h5">Level: </span>{{selectedItem1 ? selectedItem1['level'] : '-'}}</h5>
+      </div>
+      <div class="d-none d-md-block col-1">
+      </div>
+      <div class="col-6 col-md-4">
+        <h5><span class="d-md-none h5">Level: </span>{{selectedItem2 ? selectedItem2['level'] : '-'}}</h5>
+      </div>
+    </div>
+    <div class="w-100 d-flex compare-block-border">
+      <div class="d-none d-md-block col-3">
+        <h5 class="h5">Effect</h5>
+      </div>
+      <div class="col-6 col-md-4">
+        <h5><span class="d-md-none h5">Effect: </span>{{selectedItem1 ? selectedItem1['effect'] : '-'}}</h5>
+      </div>
+      <div class="d-none d-md-block col-1">
+      </div>
+      <div class="col-6 col-md-4">
+        <h5><span class="d-md-none h5">Effect: </span>{{selectedItem2 ? selectedItem2['effect'] : '-'}}</h5>
+      </div>
+    </div>
+    <div class="w-100 d-flex compare-block-border">
+      <div class="d-none d-md-block col-3">
+        <h5 class="h5">Upgrade Material</h5>
+      </div>
+      <div class="col-6 col-md-4">
+        <h5><span class="d-md-none h5">Upgrade Material: </span>{{selectedItem1 ? selectedItem1['upgMaterial'] : '-'}}</h5>
+      </div>
+      <div class="d-none d-md-block col-1">
+      </div>
+      <div class="col-6 col-md-4">
+        <h5><span class="d-md-none h5">Upgrade Material: </span>{{selectedItem2 ? selectedItem2['upgMaterial'] : '-'}}</h5>
+      </div>
+    </div>
+    <div class="w-100 d-flex compare-block-border">
+      <div class="d-none d-md-block col-3">
+        <h5 class="h5">Perl</h5>
+      </div>
+      <div class="col-6 col-md-4">
+        <h5><span class="d-md-none h5">Perl: </span>{{selectedItem1 ? selectedItem1['perl'] : '-'}}</h5>
+      </div>
+      <div class="d-none d-md-block col-1">
+      </div>
+      <div class="col-6 col-md-4">
+        <h5><span class="d-md-none h5">Perl: </span>{{selectedItem2 ? selectedItem2['perl'] : '-'}}</h5>
+      </div>
+    </div>
+  </div>
+</div>
