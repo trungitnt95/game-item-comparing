@@ -97,6 +97,60 @@
             ],
             "scripts": []
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/game-item-comparing/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json",
+            "inlineStyleLanguage": "scss"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media"
+            },
+            "development": {
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false,
+              "vendorChunk": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "game-item-comparing:build:development",
+              "serverTarget": "game-item-comparing:server:development"
+            },
+            "production": {
+              "browserTarget": "game-item-comparing:build:production",
+              "serverTarget": "game-item-comparing:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "game-item-comparing:build:production",
+              "serverTarget": "game-item-comparing:server:production"
+            },
+            "development": {
+              "browserTarget": "game-item-comparing:build:development",
+              "serverTarget": "game-item-comparing:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }

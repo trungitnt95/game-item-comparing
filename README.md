@@ -31,7 +31,20 @@ firebase init
 
 ## every deployment
 ng build ## npm start build
-firebase deploy
+firebase deploy --only hosting
+
+
+## server side rendering  (SSR)
+ng add @nguniversal/express-engine
+- it auto creates some files
+- add angularCompilerOptions cofig
+- change target of build path: from dist/game-item-comparing/browser to dist/game-item-comparing
+
+ng run dev:ssr
+ng run server:ssr
+
+## Deploy to firebase cloud function (aware COST)
+TODO: Trung
 
 ## Development server
 
