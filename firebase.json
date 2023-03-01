@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "public": "dist/game-item-comparing",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
