@@ -24,33 +24,70 @@ p {
 .spacer {
   flex: 1;
 }
-
-.toolbar {
+body {
+  background-color: #f1eeee;
+}
+.header-banner {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 60px;
+  height: 100px;
   display: flex;
   align-items: center;
-  background-color: #ffffff;
-  color: #6e7070;
+  background-color: #262626;
+  color: #fdffff;
   font-weight: 600;
-  border-bottom: 1px solid #e9eaea;
-}
+  //border-bottom: 1px solid #e9eaea;
+  div {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 
-.toolbar img {
-  margin: 0 16px;
+    .main-logo {
+      margin: 0 16px;
+    }
+    .top-fix-ad {
+      width: 720px;
+      height: 90px;
+      margin: 0 10px;
+    }
+  }
+}
+.toolbar {
+  position: absolute;
+  top: 100px;
+  left: 0;
+  right: 0;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  background-color: black;
+  color: white;
+  font-weight: 600;
+  .nav-menu {
+    margin-left: 20px;
+  }
+  a:link, a:visited {
+    color: white;
+  }
+  a:hover {
+    color: #c2c3c4;
+  }
+
+  .search-box {
+    border-radius: 5px;
+  }
 }
 
 .toolbar #twitter-logo {
   height: 40px;
-  margin: 0 8px;
+  margin: 0 5px;
 }
 
 .toolbar #youtube-logo {
   height: 40px;
-  margin: 0 16px;
+  margin: 0 5px;
 }
 
 .toolbar #twitter-logo:hover,
@@ -60,7 +97,7 @@ p {
 
 .content {
   //display: flex;
-  margin: 82px auto 32px;
+  margin: 150px auto 32px;
   padding: 0 16px;
   //max-width: 960px;
   flex-direction: column;
@@ -327,4 +364,8 @@ svg#clouds {
 .item-img {
   height: 200px;
   width: 200px;
+}
+.right-bar {
+  width: 300px;
+  height: 250px;
 }
