@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {Item} from "../item";
 import {data} from "../skyrim.data.constant";
 import {SKYRIM_GROUP} from "../compare-selector/compare-selector.component";
+import {CountService} from "../counter/count.service";
 
 @Component({
   selector: 'app-item-comparing',
@@ -14,7 +15,7 @@ export class ItemComparingComponent {
   selectedItem2 = null;
   selectedItemID1 = undefined;
   selectedItemID2 = undefined;
-  constructor() {
+  constructor(private countService: CountService) {
     const params = window.location.href.split('/');
     // console.log(params);
     // @ts-ignore
@@ -29,5 +30,7 @@ export class ItemComparingComponent {
     this.selectedItem2 = selectedGroupData.find((t: Item) => t.id === this.selectedItemID2);
     // @ts-ignore
     this.selectedItem1 = selectedGroupData.find((t: Item) => t.id === this.selectedItemID1);
+
+    this.countService.updateComparePageView();
   }
 }

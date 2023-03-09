@@ -5,6 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {FormsModule} from "@angular/forms";
 import {CompareSelectorModule} from "./compare-selector/compare-selector.module";
+import {AngularFireDatabaseModule} from "@angular/fire/compat/database";
+import {environment} from "../environments/environment";
+import {AngularFireModule} from "@angular/fire/compat";
 
 @NgModule({
   declarations: [
@@ -14,7 +17,9 @@ import {CompareSelectorModule} from "./compare-selector/compare-selector.module"
     BrowserModule.withServerTransition({appId: 'serverApp'}),
     AppRoutingModule,
     FormsModule,
-    CompareSelectorModule
+    CompareSelectorModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule
   ],
   providers: [],
   bootstrap: [AppComponent]
