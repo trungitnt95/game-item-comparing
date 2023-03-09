@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import {Item, SKYRIM_GROUP} from "../app.component";
+import {Item} from "../item";
 import {data} from "../skyrim.data.constant";
+import {SKYRIM_GROUP} from "../compare-selector/compare-selector.component";
 
 @Component({
   selector: 'app-item-comparing',
@@ -11,20 +12,22 @@ export class ItemComparingComponent {
 
   selectedItem1 = null;
   selectedItem2 = null;
+  selectedItemID1 = undefined;
+  selectedItemID2 = undefined;
   constructor() {
     const params = window.location.href.split('/');
-    console.log(params);
+    // console.log(params);
     // @ts-ignore
     const selectedGroup = SKYRIM_GROUP[params[4]];
     // @ts-ignore
-    const selectedItemID1 = params[5];
+    this.selectedItemID1 = params[5];
     // @ts-ignore
-    const selectedItemID2 = params[6];
+    this.selectedItemID2 = params[6];
     const selectedGroupData = data.filter((t: Item) => t.group === selectedGroup);
 
     // @ts-ignore
-    this.selectedItem2 = selectedGroupData.find((t: Item) => t.id === selectedItemID2);
+    this.selectedItem2 = selectedGroupData.find((t: Item) => t.id === this.selectedItemID2);
     // @ts-ignore
-    this.selectedItem1 = selectedGroupData.find((t: Item) => t.id === selectedItemID1);
+    this.selectedItem1 = selectedGroupData.find((t: Item) => t.id === this.selectedItemID1);
   }
 }

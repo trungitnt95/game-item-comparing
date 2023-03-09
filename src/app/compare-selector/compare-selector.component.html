@@ -1,0 +1,21 @@
+<select [(ngModel)]="selectedGroup" (change)="changeGroup(selectedGroup)" class=" form-control custom-select">
+  <option selected [value] = "SKYRIM_GROUP.HELMET">Helmet</option>
+  <option [value] = "SKYRIM_GROUP.GOO2">Hammer</option>
+</select>
+<br/>
+<div class="w-100 d-flex">
+  <div class="col-6 p-r-5px">
+    <select [(ngModel)]="selectedItemID1" (change)="showSelectedItem1()" class="w-100 form-control custom-select">
+      <option selected [value] = "undefined">Open this select menu</option>
+      <option *ngFor="let items1 of selectedGroupData" [value]="items1['id']" [id]="items1['id']">{{items1['name'] + ' - ' + items1['id']}}</option>
+    </select>
+  </div>
+  <div class="col-6 p-l-5px">
+    <select [(ngModel)]="selectedItemID2" (change)="showSelectedItem2()" class="w-100 form-control custom-select">
+      <option selected [value] = "undefined">Open this select menu</option>
+      <option *ngFor="let items2 of selectedGroupData" [value]="items2['id']" [id]="items2['id']">{{items2['name'] + ' - ' + items2['id']}}</option>
+    </select>
+  </div>
+</div>
+<br/>
+<button class="w-100 btn btn-success" (click)="compare()">Compare</button>

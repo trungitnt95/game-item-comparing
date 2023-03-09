@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {FormsModule} from "@angular/forms";
+import {CompareSelectorModule} from "./compare-selector/compare-selector.module";
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import {FormsModule} from "@angular/forms";
   imports: [
     BrowserModule.withServerTransition({appId: 'serverApp'}),
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    CompareSelectorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

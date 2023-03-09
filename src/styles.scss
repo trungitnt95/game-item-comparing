@@ -334,11 +334,8 @@ svg#clouds {
 .compare-block-border {
   border-bottom: 1px solid #d5d3d3;
   padding: 10px 0px;
-  div {
-    padding: 10px;
-    .h5 {
-        color: #6eb3f8;
-    }
+  .h6 {
+    color: #1976d2;
   }
 }
 .p-l-5px {
@@ -362,8 +359,8 @@ svg#clouds {
   width: 80% !important;
 }
 .item-img {
-  height: 200px;
-  width: 200px;
+  max-height: 300px;
+  max-width: 300px;
 }
 .right-bar {
   width: 300px;

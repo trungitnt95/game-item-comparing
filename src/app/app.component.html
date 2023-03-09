@@ -8,8 +8,7 @@
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
 <router-outlet></router-outlet>
-<div *ngIf="SCREEN_MODE.LIST === currentMode">
-
+<!--<div *ngIf="SCREEN_MODE.LIST === currentMode">-->
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -19,35 +18,12 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <select [(ngModel)]="selectedGroup" (change)="changeGroup(selectedGroup)" class=" form-control custom-select">
-            <option selected [value] = "SKYRIM_GROUP.HELMET">Helmet</option>
-            <option [value] = "SKYRIM_GROUP.GOO2">Hammer</option>
-          </select>
-          <br/>
-          <div class="w-100 d-flex">
-            <div class="col-6 p-r-5px">
-              <select [(ngModel)]="selectedItemID1" (change)="showSelectedItem1()" class="w-100 form-control custom-select">
-                <option selected [value] = "null">Open this select menu</option>
-                <option *ngFor="let items1 of selectedGroupData" [value]="items1['id']" [id]="items1['id']">{{items1['id'] + ' - ' + items1['name']}}</option>
-              </select>
-            </div>
-            <div class="col-6 p-l-5px">
-              <select [(ngModel)]="selectedItemID2" (change)="showSelectedItem2()" class="w-100 form-control custom-select">
-                <option selected [value] = "null">Open this select menu</option>
-                <option *ngFor="let items2 of selectedGroupData" [value]="items2['id']" [id]="items2['id']">{{items2['id'] + ' - ' + items2['name']}}</option>
-              </select>
-            </div>
-          </div>
-          <br/>
-          <button class="w-100 btn btn-outline-success" (click)="compare()">Compare</button>
+          <app-compare-selector [selectedItemID1]="undefined" [selectedItemID2]="undefined"></app-compare-selector>
         </div>
       </div>
     </div>
   </div>
-
-  <br/>
-  <br/>
-</div>
+<!--</div>-->
 
 
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
