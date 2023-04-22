@@ -3,20 +3,30 @@ import {AngularFireDatabase, AngularFireList, AngularFireObject} from "@angular/
 import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
 import {DatabaseQuery} from "@angular/fire/compat/database/interfaces";
+import {AngularFireAuth} from "@angular/fire/compat/auth";
 
 @Injectable({
   providedIn: 'root'
 })
-export class CrudService {
+export class AngularFirebaseService {
 
   // private listPathRefs: AngularFireList<any>;
   // private objectPathRefs: AngularFireObject<any>;
+  isLoggedIn = false;
 
 
   isAlreadyUpdatedHomePageView = false;
   isAlreadyUpdatedComparePageView = false;
 
-  constructor(private fireDb: AngularFireDatabase) {
+  constructor(private afAuth: AngularFireAuth, private fireDb: AngularFireDatabase) {
+    // this.afAuth.authState.subscribe((user) => {
+    //   console.log(user);
+    //   this.isLoggedIn = user !== null;
+    // });
+  }
+
+  logout() {
+    this.afAuth.signOut().then(() => this.isLoggedIn = false);
   }
 
   /**

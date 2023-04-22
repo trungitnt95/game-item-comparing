@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {CrudService} from "./counter/crud.service";
+import {AngularFirebaseService} from "./counter/angular-firebase.service";
 
 @Component({
   selector: 'app-root',
@@ -7,7 +7,10 @@ import {CrudService} from "./counter/crud.service";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(private crudService: CrudService) {
+  constructor(public afService: AngularFirebaseService) {
+  }
 
+  logout() {
+    this.afService.logout();
   }
 }
