@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {CountService} from "./counter/count.service";
+import {CrudService} from "./counter/crud.service";
 
 @Component({
   selector: 'app-root',
@@ -7,7 +7,7 @@ import {CountService} from "./counter/count.service";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(private countService: CountService) {
-    this.countService.updateHomePageView();
+  constructor(private crudService: CrudService) {
+
   }
 }
