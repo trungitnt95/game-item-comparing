@@ -9,12 +9,14 @@ import {environment} from "../environments/environment";
 import {AngularFireModule} from "@angular/fire/compat";
 import {LoginComponent} from "./components/login/login.component";
 import {HomeComponent} from "./components/home/home.component";
+import {DetailScheduleComponent} from "./components/detail-schedule/detail-schedule.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    DetailScheduleComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'serverApp'}),

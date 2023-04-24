@@ -1,0 +1,29 @@
+<div *ngIf="selectedScheduled">
+  <hr>
+  <h1>{{selectedScheduled.scheduleName}}</h1>
+
+  <p>{{selectedScheduled.age}}</p>
+  <p>{{selectedScheduled.gender}}</p>
+
+  <hr/>
+
+  <div>
+    list foods
+  </div>
+  <button class="btn btn-success" (click)="showAddFoodPanel()">+</button>
+  <div *ngIf="isShowAddingFood">
+    <select [(ngModel)]="selectedGroup" (change)="onSelectedGroup()" class="w-100 form-control custom-select">
+      <option selected [value] = "undefined">Open this select menu</option>
+      <option *ngFor="let items1 of [Group[Group.RICE],Group[Group.proteins]] " [value]="items1">{{items1}}</option>
+    </select>
+
+    <select [(ngModel)]="selectedFoodId" (change)="onSelectedFood()" class="w-100 form-control custom-select">
+      <option selected [value] = "undefined">Open this select menu</option>
+      <option *ngFor="let food of listFood" [value]="food.key">{{food.name}}</option>
+    </select>
+
+    <input type="number" [(ngModel)]="numberOf100Gram"/>
+    <button (click)="hideAddingFood()">cancel</button>
+    <button (click)="addSelectedFoodToSchedule()">ok</button>
+  </div>
+</div>

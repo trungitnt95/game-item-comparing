@@ -1,1 +1,29 @@
-<p>home works!</p>
+<div class="d-flex flex-column">
+  <div class="d-flex header w-100">
+    <div class="flex-2">Health-Food</div>
+    <div class="flex-1">::</div>
+  </div>
+  <h1>Your schedules</h1>
+  <div class="col-12 col-md-4">
+    <div class="w-100">
+      <ul *ngFor="let schedule of schedules">
+        <li (click)="onClickedSchedule(schedule)">{{schedule.scheduleName}}</li>
+      </ul>
+    </div>
+    <button class="btn btn-success" (click)="showAddSchedulePanel()">+</button>
+    <div *ngIf="isShowAddingSchedulePanel" class="w-100">
+      <input type="text" [(ngModel)]="scheduleName" placeholder="schedule name" class="form-control"/><br/>
+      <label><input type="radio" name="age" [(ngModel)]="age" value="CHILD"/>Child</label><br/>
+      <label><input type="radio" name="age" [(ngModel)]="age" value="ADULT"/>Adult</label><br/>
+      <label><input type="radio" name="age" [(ngModel)]="age" value="OLD"/>Old</label><br/><br/>
+      <label><input type="radio" name="gender" [(ngModel)]="gender" value="MAN"/>Man</label><br/>
+      <label><input type="radio" name="gender" [(ngModel)]="gender" value="WOMAN"/>Woman</label><br/>
+      <button class="btn btn-warning" (click)="noNewSchedule()">Cancel</button>
+      <button class="btn btn-success" (click)="saveNewSchedule()">OK</button>
+    </div>
+  </div>
+  <div class="col-12 col-md-8">
+    <app-detail-schedule [selectedSchedule]="selectedScheduled"></app-detail-schedule>
+<!--    <router-outlet></router-outlet>-->
+  </div>
+</div>

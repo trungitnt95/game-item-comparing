@@ -10,8 +10,12 @@ import {Router} from "@angular/router";
 export class LoginComponent {
   username = "";
   password = "";
+  isLoading = true;
 
   constructor(private afAuth: AngularFireAuth, private router: Router) {
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 2000);
   }
 
   login() {

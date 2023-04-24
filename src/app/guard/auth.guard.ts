@@ -14,8 +14,8 @@ export class AuthGuard implements CanActivate {
 
   constructor(private afService: AngularFirebaseService, public router: Router, private afAuth: AngularFireAuth) {
     this.afAuth.authState.subscribe((user) => {
-      this.afService.isLoggedIn = user !== null;
-      if (this.afService.isLoggedIn) {
+      this.afService.loggedInUID = user?.uid;
+      if (this.afService.loggedInUID) {
         const previousUrl = localStorage.getItem(this._PREVIOUS_URL);
         this.router.navigate([previousUrl === null ? '/' : previousUrl]);
       } else {
@@ -29,7 +29,7 @@ export class AuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (!this.afService.isLoggedIn) {
+    if (!this.afService.loggedInUID) {
       localStorage.setItem(this._PREVIOUS_URL, state.url === '/' ? 'home' : state.url);
       this.router.navigate([this._LOGIN_URL]);
     }

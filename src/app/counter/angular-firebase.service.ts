@@ -13,6 +13,7 @@ export class AngularFirebaseService {
   // private listPathRefs: AngularFireList<any>;
   // private objectPathRefs: AngularFireObject<any>;
   isLoggedIn = false;
+  loggedInUID: string|undefined;
 
 
   isAlreadyUpdatedHomePageView = false;
@@ -26,7 +27,7 @@ export class AngularFirebaseService {
   }
 
   logout() {
-    this.afAuth.signOut().then(() => this.isLoggedIn = false);
+    this.afAuth.signOut().then(() => this.loggedInUID = undefined);
   }
 
   /**
@@ -36,6 +37,7 @@ export class AngularFirebaseService {
    * @param obj
    */
   save(path: string, keyOrIndex: string, obj: Object): void {
+    if (!this.loggedInUID) return;
     const promise = this.fireDb.object(path + '/' + keyOrIndex).set(obj);
     // this.afterHandleRequest(promise);
   }
@@ -45,9 +47,9 @@ export class AngularFirebaseService {
    * @param path
    * @param obj
    */
-  saveWithRandomKey(path: string, obj: Object): void {
-    const promise = this.fireDb.list(path).push(obj);
-    // this.afterHandleRequest(promise);
+  saveWithRandomKey(path: string, obj: Object) {
+    if (!this.loggedInUID) return;
+    return this.fireDb.list(path).push(obj);
   }
 
   /**
@@ -78,8 +80,13 @@ export class AngularFirebaseService {
     return this.fireDb.object(path +  '/' + key).valueChanges();
   }
 
-  findAll(path: string) {
+  findAll(path: string): Observable<any>  {
+    if (!this.loggedInUID) return new Observable<any>();
     return this.fireDb.list(path).valueChanges();
+  }
+  findAllSnapShots(path: string): Observable<any>  {
+    if (!this.loggedInUID) return new Observable<any>();
+    return this.fireDb.list(path).snapshotChanges();
   }
 
   getQuery(path: string): DatabaseQuery {
