@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {AngularFireDatabase, AngularFireList, AngularFireObject} from "@angular/fire/compat/database";
-import {environment} from "../../environments/environment";
+import {environment} from "../environments/environment";
 import {Observable} from "rxjs";
 import {DatabaseQuery} from "@angular/fire/compat/database/interfaces";
 import {AngularFireAuth} from "@angular/fire/compat/auth";

@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AngularFirebaseService} from "./counter/angular-firebase.service";
+import {AngularFirebaseService} from "./angular-firebase.service";
 
 @Component({
   selector: 'app-root',

@@ -28,4 +28,15 @@
     <button (click)="hideAddingFood()">cancel</button>
     <button (click)="addSelectedFoodToSchedule()">ok</button>
   </div>
+
+  <hr/>
+  <button *ngIf="nutrisFromMaster !== selectedFoodInScheduled.length" class="btn btn-outline-danger" (click)="startAnalyze()">Get data & Calculate</button>
+  <div *ngIf="nutrisFromMaster === selectedFoodInScheduled.length">
+    <h1>Avg calculation / day:</h1>
+    <div *ngFor="let attribute of nutriAttributeNames" class="d-flex" >
+      <div class="flex-1">{{attribute}}</div>
+      <div class="flex-1">{{result[attribute] > -1 ? result[attribute] : '-'}}</div>
+    </div>
+  </div>
+
 </div>

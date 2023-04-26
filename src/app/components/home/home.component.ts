@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {Gender} from "../../model/gender.enum";
 import {Age} from "../../model/age.enum";
-import {AngularFirebaseService} from "../../counter/angular-firebase.service";
+import {AngularFirebaseService} from "../../angular-firebase.service";
 import {ScheduleType} from "../../model/schedule_type.enum";
 
 @Component({
@@ -43,9 +43,6 @@ export class HomeComponent {
   }
 
   saveNewSchedule() {
-    console.log(this.scheduleName);
-    console.log(this.age);
-    console.log(this.gender);
     this.afService.saveWithRandomKey(this.afService.loggedInUID + '/' + 'schedules',
       {
         type: this.type,

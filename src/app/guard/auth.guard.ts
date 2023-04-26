@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
 import { Observable } from 'rxjs';
-import {AngularFirebaseService} from "../counter/angular-firebase.service";
+import {AngularFirebaseService} from "../angular-firebase.service";
 import {AngularFireAuth} from "@angular/fire/compat/auth";
 
 @Injectable({

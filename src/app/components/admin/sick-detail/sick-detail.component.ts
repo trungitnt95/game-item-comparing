@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AngularFirebaseService} from "../../counter/angular-firebase.service";
+import {AngularFirebaseService} from "../../../angular-firebase.service";
 
 @Component({
   selector: 'app-sick-detail',
