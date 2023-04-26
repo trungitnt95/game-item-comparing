@@ -12,6 +12,10 @@
     </div>
     <button class="btn btn-success" (click)="showAddSchedulePanel()">+</button>
     <div *ngIf="isShowAddingSchedulePanel" class="w-100">
+      <label><input type="radio" name="type" [(ngModel)]="type" value="ONE_DAY"/>1 day</label><br/>
+      <label><input type="radio" name="type" [(ngModel)]="type" value="ONE_WEEK"/>1 week</label><br/>
+      <label><input type="radio" name="type" [(ngModel)]="type" value="TWO_WEEKS"/>2 weeks</label><br/>
+      <label><input type="radio" name="type" [(ngModel)]="type" value="ONE_MONTH"/>1 month</label><br/><br/>
       <input type="text" [(ngModel)]="scheduleName" placeholder="schedule name" class="form-control"/><br/>
       <label><input type="radio" name="age" [(ngModel)]="age" value="CHILD"/>Child</label><br/>
       <label><input type="radio" name="age" [(ngModel)]="age" value="ADULT"/>Adult</label><br/>
@@ -23,7 +27,7 @@
     </div>
   </div>
   <div class="col-12 col-md-8">
-    <app-detail-schedule [selectedSchedule]="selectedScheduled"></app-detail-schedule>
+    <app-detail-schedule *ngIf="selectedScheduled" [selectedSchedule]="selectedScheduled"></app-detail-schedule>
 <!--    <router-outlet></router-outlet>-->
   </div>
 </div>

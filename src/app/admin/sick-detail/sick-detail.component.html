@@ -1,0 +1,21 @@
+<div class="d-flex">
+  <div class="flex-1">
+    <h2><strong>{{sickName}}</strong></h2>
+    <hr>
+    <h6>{{description}}</h6>
+    <div>{{min}}</div>
+    <div>{{max}}</div>
+  </div>
+  <div class="flex-1">
+    <h2>Add this sick for nutri</h2>
+    <hr>
+    <select [(ngModel)]="nutriName" class="w-100 form-control custom-select">
+      <option selected [value] = "undefined">Open this select menu</option>
+      <option *ngFor="let nutri of ['lipit', 'sat', 'dong', 'kem']" [value]="nutri">{{nutri}}</option>
+    </select>
+    <input type="number" placeholder="min" [(ngModel)]="min"/>
+    <input type="number" placeholder="max" [(ngModel)]="max"/>
+    <textarea [(ngModel)]="description" placeholder="description"></textarea>
+    <button class="btn btn-outline-dark" (click)="saveNutriToSick()">Save</button>
+  </div>
+</div>

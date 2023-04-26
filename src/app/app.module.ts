@@ -10,13 +10,17 @@ import {AngularFireModule} from "@angular/fire/compat";
 import {LoginComponent} from "./components/login/login.component";
 import {HomeComponent} from "./components/home/home.component";
 import {DetailScheduleComponent} from "./components/detail-schedule/detail-schedule.component";
+import {AdminComponent} from "./components/admin/admin.component";
+import {SickDetailComponent} from "./admin/sick-detail/sick-detail.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    DetailScheduleComponent
+    DetailScheduleComponent,
+    AdminComponent,
+    SickDetailComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'serverApp'}),

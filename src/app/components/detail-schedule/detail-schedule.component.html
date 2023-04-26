@@ -2,13 +2,15 @@
   <hr>
   <h1>{{selectedScheduled.scheduleName}}</h1>
 
+  <p>{{selectedScheduled.type}}</p>
   <p>{{selectedScheduled.age}}</p>
   <p>{{selectedScheduled.gender}}</p>
 
   <hr/>
 
-  <div>
-    list foods
+  <div class="d-flex" *ngFor="let food of selectedFoodInScheduled">
+    <div class="flex-2">{{food.name}}</div>
+    <div class="flex-1">{{food.numberOf100Gram}}x100gam</div>
   </div>
   <button class="btn btn-success" (click)="showAddFoodPanel()">+</button>
   <div *ngIf="isShowAddingFood">

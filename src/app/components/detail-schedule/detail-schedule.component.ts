@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {AngularFirebaseService} from "../../counter/angular-firebase.service";
 import {Group} from "../../model/group.enum";
 
@@ -7,7 +7,7 @@ import {Group} from "../../model/group.enum";
   templateUrl: './detail-schedule.component.html',
   styleUrls: ['./detail-schedule.component.scss']
 })
-export class DetailScheduleComponent {
+export class DetailScheduleComponent implements OnInit {
 
   @Input('selectedSchedule')
   selectedScheduled: any;
@@ -17,14 +17,31 @@ export class DetailScheduleComponent {
   listFood: any[] = [];
   Group = Group;
   numberOf100Gram = 1;
+  selectedFoodInScheduled: any[] = [];
 
   constructor(private afService: AngularFirebaseService) {
-    console.log(this.selectedScheduled);
   }
+
+  ngOnInit(): void {
+    console.log(this.selectedScheduled);
+    if (this.selectedScheduled) {
+
+      this.afService.findAll(this.afService.loggedInUID + '/schedule_food/' + this.selectedScheduled.key)
+        .subscribe((data) => {
+          if (data) {
+            this.selectedFoodInScheduled = data;
+            console.log(this.selectedFoodInScheduled);
+          }
+        });
+    }
+  }
+
+
 
   showAddFoodPanel() {
     // clear
 
+    this.selectedFoodId = undefined;
     //show
     this.isShowAddingFood = true;
   }
