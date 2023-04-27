@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {Gender} from "../../model/gender.enum";
 import {Age} from "../../model/age.enum";
 import {AngularFirebaseService} from "../../angular-firebase.service";
@@ -60,5 +60,9 @@ export class HomeComponent {
   onClickedSchedule(scheduleKey: any) {
     console.log(scheduleKey);
     this.selectedScheduled = scheduleKey;
+  }
+
+  isNotScheduleValid(): boolean {
+    return !this.scheduleName || !this.age || !this.type || !this.gender;
   }
 }

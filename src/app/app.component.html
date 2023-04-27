@@ -1,2 +1,7 @@
-<button *ngIf="afService.loggedInUID" class="btn btn-sm btn-outline-danger" (click)="logout()">Log out</button>
+<div class="d-flex header">
+  <div class="flex-3"><h1>Health & Food</h1></div>
+  <div class="flex-1">
+    <button *ngIf="afService.loggedInUID" class="btn btn-danger" (click)="logout()">Log out</button>
+  </div>
+</div>
 <router-outlet></router-outlet>

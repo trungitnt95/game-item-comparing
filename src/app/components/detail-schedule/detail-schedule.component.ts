@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {AngularFirebaseService} from "../../angular-firebase.service";
 import {Group} from "../../model/group.enum";
 
@@ -7,12 +7,12 @@ import {Group} from "../../model/group.enum";
   templateUrl: './detail-schedule.component.html',
   styleUrls: ['./detail-schedule.component.scss']
 })
-export class DetailScheduleComponent implements OnInit {
+export class DetailScheduleComponent implements OnInit, OnChanges {
 
   @Input('selectedSchedule')
   selectedScheduled: any;
   isShowAddingFood = false;
-  selectedGroup = Group.RICE;
+  selectedGroup: string|undefined;
   selectedFoodId: string|undefined;
   listFood: any[] = [];
   Group = Group;
@@ -23,11 +23,12 @@ export class DetailScheduleComponent implements OnInit {
   result: any = null;
   nutriAttributeNames: string[] = [];
 
+  units: any = units;
+
   constructor(private afService: AngularFirebaseService) {
   }
 
   ngOnInit(): void {
-    console.log(this.selectedScheduled);
     if (this.selectedScheduled) {
       this.afService.findAll(this.afService.loggedInUID + '/schedule_food/' + this.selectedScheduled.key)
         .subscribe((data) => {
@@ -39,7 +40,9 @@ export class DetailScheduleComponent implements OnInit {
     }
   }
 
-
+  ngOnChanges(changes: SimpleChanges): void {
+    this.ngOnInit();
+  }
 
   showAddFoodPanel() {
     // clear
@@ -88,8 +91,11 @@ export class DetailScheduleComponent implements OnInit {
       this.afService.findByKey('master-data/nutris', f.foodKey)
         .subscribe((n) => {
           if (this.result === null) {
-            this.result = n;
+            this.result = JSON.parse(JSON.stringify(n));
             this.nutriAttributeNames = [];
+            delete this.result.name;
+            delete this.result.nameEnglish;
+            console.log(this.result);
             for (let a in n) {
               this.nutriAttributeNames.push(a);
             }
@@ -113,4 +119,122 @@ export class DetailScheduleComponent implements OnInit {
 
     console.log(this.result);
   }
+
+  getText(key: any) {
+    switch (key) {
+      case 'NGU_COC': return 'Ngũ cốc';
+      case 'KHOAI_CU': return 'Khoai củ';
+      case 'HAT': return 'Hạt';
+      case 'RAU_CU': return 'Rau củ';
+      case 'QUA': return 'Quả';
+      case 'DAU_MO_BO': return 'Dầu, Mỡ, Bơ';
+      case 'THIT': return 'Thịt';
+      case 'THUY_SAN': return 'Thủy sản';
+      case 'TRUNG': return 'Trứng';
+      case 'SUA': return 'Sữa';
+      case 'NUOC': return 'Nước, đồ uống';
+      case 'CHILD': return 'Child';
+      case 'ADULT': return 'Adult';
+      case 'OLD': return 'Old';
+      case 'MAN': return 'Male';
+      case 'WOMAN': return 'Female';
+      case 'ONE_WEEK': return '7 days';
+      case 'WO_WEEKS': return '14 days';
+      case 'ONE_MONTH': return '30 days';
+      default: return '1 day';
+    }
+  }
+
+  isNotValidForm() {
+    return !this.selectedScheduled || !this.selectedGroup || !this.selectedFoodId || !this.numberOf100Gram;
+  }
 }
+export const units = {
+  "acidAspartic": 'mg',
+  "acidGlutamic": 'mg',
+  "alanin": 'mg',
+  "alphaCaroten": 'μg',
+  "arachidic": 'g',
+  "arachidonic": 'g',
+  "arginin": 'mg',
+  "ash": 'g',
+  "behenic": 'g',
+  "betaCaroten": 'μg',
+  "betaCryptoXanthin": 'μg',
+  "calci": 'mg',
+  "celluloza": 'g',
+  "cholesterol": 'mg',
+  "cystin": 'mg',
+  "daidzein": 'mg',
+  "docosahexaenoic": 'g',
+  "dong": 'μg',
+  "eicosapentaenoic": 'g',
+  "folat": 'μg',
+  "fructoza": 'g',
+  "galactoza": 'g',
+  "genistein": 'mg',
+  "glucid": 'g',
+  "glucoza": 'g',
+  "glycetin": 'mg',
+  "glycin": 'mg',
+  "histidin": 'mg',
+  "isoleucin": 'mg',
+  "kCal": 'KCal',
+  "kJ": 'KJ',
+  "kali": 'mg',
+  "kem": 'mg',
+  "lactoza": 'g',
+  "leucin": 'mg',
+  "lignoceric": 'g',
+  "linoleic": 'g',
+  "linolenic": 'g',
+  "lipit": 'g',
+  "luteinZeaxanthin": 'μg',
+  "lycopen": 'μg',
+  "lysin": 'mg',
+  "magie": 'mg',
+  "maltoza": 'g',
+  "mangan": 'mg',
+  "margaric": 'g',
+  "methionin": 'mg',
+  "myristoleic": 'g',
+  "natri": 'mg',
+  "oleic": 'g',
+  "palmitic": 'g',
+  "palmitoleic": 'g',
+  "phenylalanin": 'mg',
+  "phospho": 'mg',
+  "phytosterol": 'mg',
+  "prolin": 'mg',
+  "protein": 'g',
+  "purin": 'mg',
+  "sacaroza": 'g',
+  "sat": 'mg',
+  "selen": 'μg',
+  "serin": 'mg',
+  "stearic": 'g',
+  "sugar": 'g',
+  "threonin": 'mg',
+  "totalIsoflavon": 'mg',
+  "totalMonounsaturatedFattyAcid": 'g',
+  "totalPolyunsaturatedFattyAcid": 'g',
+  "totalSaturatedFattyAcid": 'g',
+  "totalTransFattyAcid": 'g',
+  "tryptophan": 'mg',
+  "tyrosin": 'mg',
+  "valin": 'mg',
+  "vitaminA": 'μg',
+  "vitaminB1": 'mg',
+  "vitaminB12": 'μg',
+  "vitaminB2": 'mg',
+  "vitaminB5": 'mg',
+  "vitaminB6": 'mg',
+  "vitaminB9": 'μg',
+  "vitaminC": 'mg',
+  "vitaminD": 'μg',
+  "vitaminE": 'mg',
+  "vitaminH": 'μg',
+  "vitaminK": 'μg',
+  "vitaminPP": 'mg',
+  "water": 'g'
+};

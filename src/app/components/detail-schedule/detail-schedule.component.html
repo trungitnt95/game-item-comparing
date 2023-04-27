@@ -1,42 +1,38 @@
-<div *ngIf="selectedScheduled">
-  <hr>
-  <h1>{{selectedScheduled.scheduleName}}</h1>
-
-  <p>{{selectedScheduled.type}}</p>
-  <p>{{selectedScheduled.age}}</p>
-  <p>{{selectedScheduled.gender}}</p>
-
+<div *ngIf="selectedScheduled" class="alert alert-success">
+  <h3>{{selectedScheduled.scheduleName}} ({{getText(selectedScheduled.type)}}, {{getText(selectedScheduled.age)}}, {{getText(selectedScheduled.gender)}})</h3>
   <hr/>
-
+  <strong><i>Food in this schedule:</i></strong>
   <div class="d-flex" *ngFor="let food of selectedFoodInScheduled">
     <div class="flex-2">{{food.name}}</div>
-    <div class="flex-1">{{food.numberOf100Gram}}x100gam</div>
+    <div class="flex-1"><strong class="text-success">{{food.numberOf100Gram}}</strong> x100gam</div>
   </div>
-  <button class="btn btn-success" (click)="showAddFoodPanel()">+</button>
-  <div *ngIf="isShowAddingFood">
+  <button *ngIf="!isShowAddingFood" class="btn btn-sm btn-outline-success" (click)="showAddFoodPanel()">+</button>
+  <div *ngIf="isShowAddingFood" class="alert alert-info">
+    <label>Group:</label>
     <select [(ngModel)]="selectedGroup" (change)="onSelectedGroup()" class="w-100 form-control custom-select">
-      <option selected [value] = "undefined">Open this select menu</option>
-      <option *ngFor="let items1 of [Group[Group.RICE],Group[Group.proteins]] " [value]="items1">{{items1}}</option>
+      <option [value]="undefined">Select a group</option>
+      <option *ngFor="let items1 of ['NGU_COC', 'KHOAI_CU', 'HAT', 'RAU_CU', 'QUA', 'DAU_MO_BO', 'THIT', 'THUY_SAN', 'TRUNG', 'SUA', 'NUOC']" [value]="items1">{{getText(items1)}}</option>
     </select>
-
+    <label>Food:</label>
     <select [(ngModel)]="selectedFoodId" (change)="onSelectedFood()" class="w-100 form-control custom-select">
-      <option selected [value] = "undefined">Open this select menu</option>
+      <option [value]="undefined">Select a food</option>
       <option *ngFor="let food of listFood" [value]="food.key">{{food.name}}</option>
     </select>
-
-    <input type="number" [(ngModel)]="numberOf100Gram"/>
-    <button (click)="hideAddingFood()">cancel</button>
-    <button (click)="addSelectedFoodToSchedule()">ok</button>
+    <label>Quantity x100g:</label>
+    <input type="number" [(ngModel)]="numberOf100Gram" class="form-control" value="1"/>
+    <button (click)="hideAddingFood()" class="btn btn-outline-warning">cancel</button>{{ '  '}}
+    <button *ngIf="!isNotValidForm()" (click)="addSelectedFoodToSchedule()" class="btn btn-outline-info">add</button>
   </div>
 
   <hr/>
-  <button *ngIf="nutrisFromMaster !== selectedFoodInScheduled.length" class="btn btn-outline-danger" (click)="startAnalyze()">Get data & Calculate</button>
-  <div *ngIf="nutrisFromMaster === selectedFoodInScheduled.length">
-    <h1>Avg calculation / day:</h1>
+  <button *ngIf="nutrisFromMaster !== selectedFoodInScheduled.length" class="btn btn-danger" (click)="startAnalyze()">Calculate</button>
+  <div *ngIf="nutrisFromMaster > 0 && nutrisFromMaster === selectedFoodInScheduled.length">
+    <h3>Avg calculation/day:</h3>
     <div *ngFor="let attribute of nutriAttributeNames" class="d-flex" >
-      <div class="flex-1">{{attribute}}</div>
-      <div class="flex-1">{{result[attribute] > -1 ? result[attribute] : '-'}}</div>
+      <div class="flex-2">{{attribute}}</div>
+      <div class="flex-1"><strong class="text-success">{{result[attribute] > -1 ? result[attribute].toFixed(2) : '-'}}</strong> ({{units[attribute]}})</div>
     </div>
+    <strong class="text-danger"><i>Note: These numbers were based on the VTN_FCT_2007 document.</i></strong>
   </div>
 
 </div>

@@ -1,33 +1,55 @@
-<div class="d-flex flex-column">
-  <div class="d-flex header w-100">
-    <div class="flex-2">Health-Food</div>
-    <div class="flex-1">::</div>
-  </div>
-  <h1>Your schedules</h1>
-  <div class="col-12 col-md-4">
-    <div class="w-100">
-      <ul *ngFor="let schedule of schedules">
-        <li (click)="onClickedSchedule(schedule)">{{schedule.scheduleName}}</li>
-      </ul>
+<div class="w-100">
+  <div class="col-12 col-md-4 p-2 float-start">
+    <div class="alert alert-info">
+      <h3>Your schedules</h3>
+      <table class="table">
+        <tbody>
+          <tr *ngFor="let schedule of schedules">
+            <td (click)="onClickedSchedule(schedule)">{{schedule.scheduleName}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <button *ngIf="!isShowAddingSchedulePanel" class="btn btn-outline-success" (click)="showAddSchedulePanel()">+</button>
     </div>
-    <button class="btn btn-success" (click)="showAddSchedulePanel()">+</button>
-    <div *ngIf="isShowAddingSchedulePanel" class="w-100">
-      <label><input type="radio" name="type" [(ngModel)]="type" value="ONE_DAY"/>1 day</label><br/>
-      <label><input type="radio" name="type" [(ngModel)]="type" value="ONE_WEEK"/>1 week</label><br/>
-      <label><input type="radio" name="type" [(ngModel)]="type" value="TWO_WEEKS"/>2 weeks</label><br/>
-      <label><input type="radio" name="type" [(ngModel)]="type" value="ONE_MONTH"/>1 month</label><br/><br/>
+
+    <div *ngIf="isShowAddingSchedulePanel" class=" alert alert-success">
       <input type="text" [(ngModel)]="scheduleName" placeholder="schedule name" class="form-control"/><br/>
-      <label><input type="radio" name="age" [(ngModel)]="age" value="CHILD"/>Child</label><br/>
-      <label><input type="radio" name="age" [(ngModel)]="age" value="ADULT"/>Adult</label><br/>
-      <label><input type="radio" name="age" [(ngModel)]="age" value="OLD"/>Old</label><br/><br/>
-      <label><input type="radio" name="gender" [(ngModel)]="gender" value="MAN"/>Man</label><br/>
-      <label><input type="radio" name="gender" [(ngModel)]="gender" value="WOMAN"/>Woman</label><br/>
-      <button class="btn btn-warning" (click)="noNewSchedule()">Cancel</button>
-      <button class="btn btn-success" (click)="saveNewSchedule()">OK</button>
+      <div class="d-flex">
+        <div class="flex-1">
+          <label><input type="radio" name="type" [(ngModel)]="type" value="ONE_DAY"/>1 day</label><br/></div>
+        <div class="flex-1">
+          <label><input type="radio" name="type" [(ngModel)]="type" value="ONE_WEEK"/>7 days</label><br/></div>
+        <div class="flex-1">
+          <label><input type="radio" name="type" [(ngModel)]="type" value="TWO_WEEKS"/>14 days</label><br/></div>
+        <div class="flex-1">
+          <label><input type="radio" name="type" [(ngModel)]="type" value="ONE_MONTH"/>30 days</label><br/></div>
+      </div><br/>
+      <div class="d-flex">
+        <div class="flex-1"><label><input type="radio" name="age" [(ngModel)]="age" value="CHILD"/>Child</label><br/></div>
+        <div class="flex-1"><label><input type="radio" name="age" [(ngModel)]="age" value="ADULT"/>Adult</label><br/></div>
+        <div class="flex-1"><label><input type="radio" name="age" [(ngModel)]="age" value="OLD"/>Old</label><br/><br/></div>
+        <div class="flex-1"></div>
+      </div>
+
+      <div class="d-flex">
+        <div class="flex-1"><label><input type="radio" name="gender" [(ngModel)]="gender" value="MAN"/>Man</label><br/></div>
+        <div class="flex-1"><label><input type="radio" name="gender" [(ngModel)]="gender" value="WOMAN"/>Woman</label><br/></div>
+        <div class="flex-1"></div>
+        <div class="flex-1"></div>
+      </div>
+      <hr/>
+      <div class="d-flex">
+        <div class="flex-1">
+          <button class="btn btn-warning" (click)="noNewSchedule()">Cancel</button></div>
+        <div class="flex-1"><button *ngIf="!isNotScheduleValid()" class="btn btn-success" (click)="saveNewSchedule()">Save</button></div>
+        <div class="flex-1"></div>
+        <div class="flex-1"></div>
+      </div>
+
     </div>
   </div>
-  <div class="col-12 col-md-8">
+  <div class="col-12 col-md-8 p-2 float-end">
     <app-detail-schedule *ngIf="selectedScheduled" [selectedSchedule]="selectedScheduled"></app-detail-schedule>
-<!--    <router-outlet></router-outlet>-->
+    <router-outlet></router-outlet>
   </div>
 </div>
