@@ -2,9 +2,10 @@
   <h3>{{selectedScheduled.scheduleName}} ({{getText(selectedScheduled.type)}}, {{getText(selectedScheduled.age)}}, {{getText(selectedScheduled.gender)}})</h3>
   <hr/>
   <strong><i>Food in this schedule:</i></strong>
-  <div class="d-flex" *ngFor="let food of selectedFoodInScheduled">
-    <div class="flex-2">{{food.name}}</div>
-    <div class="flex-1"><strong class="text-success">{{food.numberOf100Gram}}</strong> x100gam</div>
+  <div class="d-flex justify-content-between" *ngFor="let food of selectedFoodInScheduled">
+    <div>{{food.name}}</div>
+    <div><strong class="text-success">{{food.numberOf100Gram}}</strong> x100gam</div>
+    <div class="btn btn-sm btn-outline-danger" (click)="onRemoveFoodOut(food)">-</div>
   </div>
   <button *ngIf="!isShowAddingFood" class="btn btn-sm btn-outline-success" (click)="showAddFoodPanel()">+</button>
   <div *ngIf="isShowAddingFood" class="alert alert-info">

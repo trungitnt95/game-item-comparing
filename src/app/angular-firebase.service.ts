@@ -69,11 +69,11 @@ export class AngularFirebaseService {
    * @param keyOrIndex
    */
   delete(path: string, keyOrIndex: string) {
-    this.deleteAll(path + '/' + keyOrIndex);
+    return this.deleteAll(path + '/' + keyOrIndex);
   }
 
   deleteAll(path: string) {
-    this.fireDb.object(path).remove();
+    return this.fireDb.object(path).remove();
   }
 
   findByKey(path: string, key: string): Observable<any> {

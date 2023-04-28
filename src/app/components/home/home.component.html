@@ -5,7 +5,10 @@
       <table class="table">
         <tbody>
           <tr *ngFor="let schedule of schedules">
-            <td (click)="onClickedSchedule(schedule)">{{schedule.scheduleName}}</td>
+            <td class="d-flex justify-content-between">
+              <div class="" (click)="onClickedSchedule(schedule)">{{schedule.scheduleName}}</div>
+              <div class="btn btn-sm btn-outline-danger" (click)="onDeleteSchedule(schedule.key, schedule.scheduleName)">-</div>
+            </td>
           </tr>
         </tbody>
       </table>

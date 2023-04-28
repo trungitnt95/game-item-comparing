@@ -65,4 +65,14 @@ export class HomeComponent {
   isNotScheduleValid(): boolean {
     return !this.scheduleName || !this.age || !this.type || !this.gender;
   }
+
+  onDeleteSchedule(scheduleKey: string, scheduleName: string) {
+    if (confirm('Are you sure to delete the schedule ' + scheduleName + '?')) {
+      this.selectedScheduled = undefined;
+      this.afService.delete(this.afService.loggedInUID + '/schedule_food', scheduleKey)
+        .then(() => {
+          this.afService.delete(this.afService.loggedInUID + '/schedules', scheduleKey);
+        });
+    }
+  }
 }

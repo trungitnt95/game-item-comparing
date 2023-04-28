@@ -148,6 +148,18 @@ export class DetailScheduleComponent implements OnInit, OnChanges {
   isNotValidForm() {
     return !this.selectedScheduled || !this.selectedGroup || !this.selectedFoodId || !this.numberOf100Gram;
   }
+
+  onRemoveFoodOut(food: any) {
+    this.afService.getQuery(this.afService.loggedInUID + '/schedule_food/' + this.selectedScheduled.key)
+      .orderByChild('foodKey').equalTo(food.foodKey).get().then((result) => {
+        if (result?.val()) {
+          const foodId = Object.keys(result.val())[0];
+          console.log(foodId);
+          this.afService.delete(this.afService.loggedInUID + '/schedule_food/' + this.selectedScheduled.key,
+            foodId);
+        }
+    });
+  }
 }
 export const units = {
   "acidAspartic": 'mg',
