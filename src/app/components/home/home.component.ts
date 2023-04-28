@@ -27,7 +27,7 @@ export class HomeComponent {
       for (const item of data) {
         let data1 = item.payload.toJSON();
         data1.key = item.key;
-        console.log(data1);
+        // console.log(data1);
         this.schedules.push(data1);
       }
     });
@@ -58,7 +58,7 @@ export class HomeComponent {
   }
 
   onClickedSchedule(scheduleKey: any) {
-    console.log(scheduleKey);
+    // console.log(scheduleKey);
     this.selectedScheduled = scheduleKey;
   }
 

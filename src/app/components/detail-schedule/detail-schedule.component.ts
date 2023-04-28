@@ -25,6 +25,9 @@ export class DetailScheduleComponent implements OnInit, OnChanges {
 
   units: any = units;
 
+  sickFoods: Map<string, any> = new Map<string, any>();
+  minList: string[] = [];
+  maxList: string[] = [];
   constructor(private afService: AngularFirebaseService) {
   }
 
@@ -34,7 +37,7 @@ export class DetailScheduleComponent implements OnInit, OnChanges {
         .subscribe((data) => {
           if (data) {
             this.selectedFoodInScheduled = data;
-            console.log(this.selectedFoodInScheduled);
+            // console.log(this.selectedFoodInScheduled);
           }
         });
     }
@@ -69,17 +72,17 @@ export class DetailScheduleComponent implements OnInit, OnChanges {
   }
 
   onSelectedGroup() {
-    console.log(this.selectedGroup);
+    // console.log(this.selectedGroup);
     this.listFood = [];
     this.afService.findAll('/master-data/groups/' + this.selectedGroup)
       .subscribe((foods) => {
-        console.log(foods);
+        // console.log(foods);
         this.listFood = foods;
       });
   }
 
   onSelectedFood() {
-    console.log(this.selectedFoodId);
+    // console.log(this.selectedFoodId);
   }
 
   startAnalyze() {
@@ -95,7 +98,7 @@ export class DetailScheduleComponent implements OnInit, OnChanges {
             this.nutriAttributeNames = [];
             delete this.result.name;
             delete this.result.nameEnglish;
-            console.log(this.result);
+            // console.log(this.result);
             for (let a in n) {
               this.nutriAttributeNames.push(a);
             }
@@ -115,9 +118,9 @@ export class DetailScheduleComponent implements OnInit, OnChanges {
   }
 
   calculate() {
-    console.log(this.nutrisFromMaster);
+    // console.log(this.nutrisFromMaster);
 
-    console.log(this.result);
+    // console.log(this.result);
   }
 
   getText(key: any) {
@@ -154,12 +157,55 @@ export class DetailScheduleComponent implements OnInit, OnChanges {
       .orderByChild('foodKey').equalTo(food.foodKey).get().then((result) => {
         if (result?.val()) {
           const foodId = Object.keys(result.val())[0];
-          console.log(foodId);
+          // console.log(foodId);
           this.afService.delete(this.afService.loggedInUID + '/schedule_food/' + this.selectedScheduled.key,
             foodId);
         }
     });
   }
+
+  showAdvice() {
+    if (this.sickFoods.size === 0) {
+      this.afService.findAllSnapShots('master-data/nutris-sicks')
+        .subscribe((data) => {
+          for (let a of data) {
+            let b = a.payload.toJSON();
+            b = b[Object.keys(b)[0]];
+            this.sickFoods.set(a.key, b);
+          }
+          // console.log(this.sickFoods);
+          this.process();
+        });
+    } else {
+      // console.log(this.sickFoods);
+      this.process();
+    }
+  }
+
+  process() {
+    if (this.sickFoods.size === 0) return;
+    this.minList = [];
+    this.maxList = [];
+    for (let attribute of this.nutriAttributeNames) {
+      if (this.result[attribute] > -1 && this.sickFoods.get(attribute) && this.sickFoods.get(attribute).min > -1
+          && this.result[attribute] < this.sickFoods.get(attribute).min) {
+        this.afService.findByKey('master-data/sicks/PHO_BIEN', this.sickFoods.get(attribute).min_sick_key)
+          .subscribe((data) => {
+            // console.log(data);
+            this.minList.push(attribute + ' (' + this.result[attribute] + '<' + this.sickFoods.get(attribute).min + '): ' + data.sickName);
+          });
+      }
+      if (this.result[attribute] > -1 && this.sickFoods.get(attribute) && this.sickFoods.get(attribute).max > -1
+        && this.result[attribute] > this.sickFoods.get(attribute).max) {
+        this.afService.findByKey('master-data/sicks/PHO_BIEN', this.sickFoods.get(attribute).max_sick_key)
+          .subscribe((data) => {
+            // console.log(data);
+            this.maxList.push(attribute + ' (' + this.result[attribute] + '>' + this.sickFoods.get(attribute).max + '): ' + data.sickName);
+          });
+      }
+    }
+  }
+
 }
 export const units = {
   "acidAspartic": 'mg',

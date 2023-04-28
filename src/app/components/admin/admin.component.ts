@@ -16,9 +16,9 @@ export class AdminComponent implements OnInit {
   constructor(private afService: AngularFirebaseService) {
   }
   onSelectedSickGroup() {
-    this.sicksByGroup = [];
     this.afService.findAllSnapShots('master-data/sicks/' + this.selectedSickGroup)
       .subscribe((snapshots) => {
+        this.sicksByGroup = [];
         for (let sn of snapshots) {
           let o = sn.payload.toJSON();
           o.key = sn.key;

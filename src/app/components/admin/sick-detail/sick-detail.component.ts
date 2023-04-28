@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AngularFirebaseService} from "../../../angular-firebase.service";
+import {units} from "../../detail-schedule/detail-schedule.component";
 
 @Component({
   selector: 'app-sick-detail',
@@ -23,23 +24,20 @@ export class SickDetailComponent implements OnInit {
   min_sick_key: string|undefined;
   max_sick_key: string|undefined;
 
+  nutrisList: any = Object.keys(units);
+  nutrisInSick: any[] = [];
+
 
   constructor(private afService: AngularFirebaseService) {
+    // console.log(this.nutrisList);
   }
 
   ngOnInit(): void {
     if (this.sickKey) {
-      this.afService.findByKey('master-data/nutris-sicks', this.sickKey)
+      this.afService.findAllSnapShots('master-data/nutris-sicks')
         .subscribe((sickNutriData) => {
-          console.log(sickNutriData);
-          if (sickNutriData) {
-            this.description = sickNutriData.description;
-            this.nutriName = sickNutriData.nutriName;
-            this.min = sickNutriData.min;
-            this.max = sickNutriData.max;
-            this.min_sick_key = sickNutriData.min_sick_key;
-            this.max_sick_key = sickNutriData.max_sick_key;
-          }
+          // console.log(sickNutriData);
+          this.nutrisInSick = sickNutriData;
         });
     }
   }
@@ -54,5 +52,15 @@ export class SickDetailComponent implements OnInit {
         min_sick_key: this.min > -1.0 ? this.sickKey : "",
         max_sick_key: this.max > -1.0 ? this.sickKey : ""
       });
+  }
+
+  getExit(nutriName: any) {
+    let jsonPayload = nutriName.payload.toJSON();
+    console.log(jsonPayload);
+    for (let attr of Object.keys(jsonPayload)) {
+      if (jsonPayload[attr].min_sick_key === this.sickKey)
+        return nutriName.key + ' # min=' + jsonPayload[Object.keys(jsonPayload)[0]].min + ':max=' + jsonPayload[Object.keys(jsonPayload)[0]].max;
+    }
+    return '';
   }
 }

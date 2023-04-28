@@ -33,7 +33,20 @@
       <div class="flex-2">{{attribute}}</div>
       <div class="flex-1"><strong class="text-success">{{result[attribute] > -1 ? result[attribute].toFixed(2) : '-'}}</strong> ({{units[attribute]}})</div>
     </div>
-    <strong class="text-danger"><i>Note: These numbers were based on the VTN_FCT_2007 document.</i></strong>
+    <strong class="text-danger"><i>Note: These numbers were based on the VTN_FCT_2007 document.</i></strong><br>
+    <hr/>
+    <div *ngIf="selectedScheduled.type !== 'ONE_DAY'">
+      <button class="btn btn-sm btn-outline-dark" (click)="showAdvice()">See advices</button>
+      <strong>các bệnh hay triệu chứng có thể xảy ra do thiếu:</strong>
+      <div *ngFor="let sick of minList">
+        <div>{{sick}}</div>
+      </div>
+      <br>
+      <strong>các bệnh hay triệu chứng có thể xảy ra do thừa:</strong>
+      <div *ngFor="let sick of maxList">
+        <div>{{sick}}</div>
+      </div>
+    </div>
   </div>
 
 </div>
