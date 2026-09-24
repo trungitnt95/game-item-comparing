@@ -1,0 +1,83 @@
+<div class="page-header">
+  <h1>Tra cứu thực phẩm</h1>
+  <p>
+    {{ catalog.foods.length }} thực phẩm Việt Nam, {{ catalog.nutrients.length }} chỉ số dinh dưỡng
+    trên 100 g phần ăn được.
+  </p>
+</div>
+
+<section class="card stack filters" aria-label="Bộ lọc">
+  <input
+    #search
+    type="search"
+    class="input"
+    placeholder="Tìm theo tên, vd: ca chua, trứng, salmon…"
+    aria-label="Tìm thực phẩm"
+    [value]="query()"
+    (input)="setQuery(search.value)"
+  />
+  <div class="chips" role="group" aria-label="Lọc theo nhóm thực phẩm">
+    <button type="button" class="chip" [class.active]="!groupId()" (click)="setGroup(null)">Tất cả</button>
+    @for (g of catalog.groups; track g.id) {
+      <button
+        type="button"
+        class="chip"
+        [class.active]="groupId() === g.id"
+        [attr.aria-pressed]="groupId() === g.id"
+        (click)="setGroup(g.id)"
+      >
+        {{ g.name }}
+      </button>
+    }
+  </div>
+</section>
+
+<p class="muted small" aria-live="polite">{{ results().length }} kết quả</p>
+
+<div class="food-grid">
+  @for (food of results(); track food.id) {
+    <article class="card food-card">
+      <a class="food-link" [routerLink]="['/foods', food.id]">
+        <span class="badge">{{ groupName(food.group) }}</span>
+        <h2>{{ food.name }}</h2>
+        <p class="muted small english">{{ food.nameEnglish }}</p>
+        <p class="kcal">
+          <strong>{{ food.nutrients['kCal'] | num }}</strong> kcal <span class="muted">/ 100 g</span>
+        </p>
+        <dl class="macros">
+          <div>
+            <dt>Protein</dt>
+            <dd>{{ food.nutrients['protein'] | num }} g</dd>
+          </div>
+          <div>
+            <dt>Chất béo</dt>
+            <dd>{{ food.nutrients['lipit'] | num }} g</dd>
+          </div>
+          <div>
+            <dt>Glucid</dt>
+            <dd>{{ food.nutrients['glucid'] | num }} g</dd>
+          </div>
+        </dl>
+      </a>
+      <div class="row">
+        <button
+          type="button"
+          class="btn btn-sm"
+          [class.btn-active]="compare.has(food.id)"
+          [disabled]="!compare.has(food.id) && compare.isFull()"
+          (click)="compare.toggle(food.id)"
+        >
+          {{ compare.has(food.id) ? '✓ Đang so sánh' : '+ So sánh' }}
+        </button>
+        <button type="button" class="btn btn-sm" (click)="addToMeal(food.id)">
+          {{ added.current() === food.id ? '✓ Đã thêm 100 g' : '+ Bữa ăn' }}
+        </button>
+      </div>
+    </article>
+  } @empty {
+    <div class="card empty-state">
+      Không tìm thấy thực phẩm phù hợp.
+      <button type="button" class="btn btn-sm" (click)="clearFilters()">Xoá bộ lọc</button>
+    </div>
+  }
+</div>

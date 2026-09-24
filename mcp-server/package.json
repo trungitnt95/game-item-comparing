@@ -1,0 +1,28 @@
+{
+  "name": "nutrition-health-mcp",
+  "version": "1.0.0",
+  "description": "MCP server để AI tra cứu dữ liệu dinh dưỡng thực phẩm (stdio + Streamable HTTP).",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "nutrition-health-mcp": "dist/nutrition-health-mcp.mjs"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "start": "node dist/nutrition-health-mcp.mjs",
+    "start:http": "node dist/nutrition-health-mcp.mjs --http",
+    "inspect": "npx @modelcontextprotocol/inspector node dist/nutrition-health-mcp.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.1",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "esbuild": "^0.28.0"
+  }
+}

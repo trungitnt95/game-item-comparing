@@ -1,0 +1,73 @@
+<div class="page-header">
+  <h1>Giới thiệu &amp; kết nối AI</h1>
+  <p>Ứng dụng tra cứu dinh dưỡng và sức khoẻ, chạy hoàn toàn trên trình duyệt, không cần đăng nhập.</p>
+</div>
+
+<div class="stack">
+  <section class="card">
+    <h2>Dữ liệu</h2>
+    <ul>
+      <li>Nguồn: {{ dataSource.name }} – {{ dataSource.publisher }}.</li>
+      <li>
+        {{ catalog.foods.length }} thực phẩm thuộc {{ catalog.groups.length }} nhóm,
+        {{ catalog.nutrients.length }} chỉ số dinh dưỡng. {{ dataSource.basis }}.
+      </li>
+      <li>“—” nghĩa là bảng gốc không có số liệu, không phải bằng 0.</li>
+      <li>
+        Dữ liệu JSON dùng được trực tiếp (vd cho script hoặc AI):
+        @for (file of dataFiles; track file; let last = $last) {
+          <a [href]="'data/' + file">{{ file }}</a>{{ last ? '' : ', ' }}
+        }
+      </li>
+    </ul>
+    <p class="notice">
+      Thông tin chỉ mang tính tham khảo, không thay thế chẩn đoán hay tư vấn của bác sĩ, chuyên gia dinh dưỡng.
+    </p>
+  </section>
+
+  <section class="card">
+    <h2>Dùng với AI qua MCP</h2>
+    <p>
+      Ứng dụng có kèm một <strong>MCP server</strong> (Model Context Protocol) để các trợ lý AI như Claude
+      tra cứu cùng bộ dữ liệu này. Tất cả tool đều chỉ đọc.
+    </p>
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Tool</th>
+            <th scope="col">Chức năng</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (tool of tools; track tool.name) {
+            <tr>
+              <td><code>{{ tool.name }}</code></td>
+              <td>{{ tool.description }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <h3>1. Tải server (một file, cần Node.js 24+)</h3>
+    <pre><code>curl -LO {{ mcpUrl }}</code></pre>
+    <p class="small muted">
+      Hoặc <a [href]="mcpFile" download>tải trực tiếp</a>. File đã đóng gói sẵn dữ liệu, không cần cài thêm gì.
+    </p>
+
+    <h3>2a. Claude Code</h3>
+    <pre><code>claude mcp add nutrition-health -- node /duong-dan/toi/nutrition-health-mcp.mjs</code></pre>
+
+    <h3>2b. Claude Desktop (claude_desktop_config.json)</h3>
+    <pre><code>{{ desktopConfig }}</code></pre>
+
+    <h3>2c. Chạy dạng HTTP (Streamable HTTP)</h3>
+    <pre><code>PORT=3000 node nutrition-health-mcp.mjs --http
+claude mcp add --transport http nutrition-health http://localhost:3000/mcp</code></pre>
+    <p class="small muted">
+      Chế độ HTTP không lưu phiên nên deploy được lên bất kỳ host Node/Docker nào. Mã nguồn và hướng dẫn chi
+      tiết: <a [href]="repositoryUrl" target="_blank" rel="noopener">GitHub</a>.
+    </p>
+  </section>
+</div>

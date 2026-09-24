@@ -1,0 +1,89 @@
+<div class="page-header">
+  <h1>Tính dinh dưỡng bữa ăn</h1>
+  <p>Chọn thực phẩm và khối lượng để xem tổng năng lượng và các chất. Dữ liệu chỉ lưu trên trình duyệt của bạn.</p>
+</div>
+
+<div class="layout">
+  <section class="card stack">
+    <h2>Thực phẩm trong bữa ăn</h2>
+    <div class="row add">
+      <label class="field">
+        Khối lượng (g)
+        <input
+          #addGrams
+          type="number"
+          class="input input-grams"
+          min="1"
+          max="10000"
+          step="10"
+          [value]="newGrams()"
+          (input)="setNewGrams(addGrams.value)"
+        />
+      </label>
+      <app-food-picker id="meal-picker" placeholder="+ Thêm thực phẩm…" (picked)="store.add($event, newGrams())" />
+    </div>
+
+    @if (result().lines.length) {
+      <ul class="items">
+        @for (line of result().lines; track line.food.id) {
+          <li>
+            <a [routerLink]="['/foods', line.food.id]" class="name">{{ line.food.name }}</a>
+            <label class="visually-hidden" [attr.for]="'grams-' + line.food.id">Khối lượng {{ line.food.name }}</label>
+            <input
+              #itemGrams
+              type="number"
+              class="input input-grams"
+              min="0"
+              max="10000"
+              step="10"
+              [id]="'grams-' + line.food.id"
+              [value]="line.grams"
+              (change)="setGrams(line.food.id, itemGrams.value)"
+            />
+            <span class="muted small">g</span>
+            <button
+              type="button"
+              class="btn btn-sm btn-danger"
+              [attr.aria-label]="'Bỏ ' + line.food.name"
+              (click)="store.remove(line.food.id)"
+            >
+              ×
+            </button>
+          </li>
+        }
+      </ul>
+      <div class="row">
+        <span class="muted small">Tổng khối lượng: {{ result().totalGrams | num }} g</span>
+        <span class="spacer"></span>
+        <button type="button" class="btn btn-sm btn-danger" (click)="store.clear()">Xoá bữa ăn</button>
+      </div>
+    } @else {
+      <p class="muted">Chưa có thực phẩm nào. Chọn khối lượng rồi chọn thực phẩm ở trên.</p>
+    }
+  </section>
+
+  <section class="card stack">
+    <h2>Tổng dinh dưỡng</h2>
+    <div class="tiles">
+      @for (item of summary(); track item.nutrient.key) {
+        <div class="tile">
+          <div class="tile-label">{{ item.nutrient.name }}</div>
+          <div class="tile-value">
+            {{ (result().lines.length ? item.value : 0) | num }}<span class="tile-unit">{{ item.nutrient.unit }}</span>
+          </div>
+        </div>
+      }
+    </div>
+    <app-energy-bar [split]="split()" />
+  </section>
+</div>
+
+@if (result().lines.length) {
+  <section class="card details">
+    <h2>Chi tiết</h2>
+    <p class="muted small">
+      Chất nào có ghi “Thiếu số liệu” thì tổng chưa tính các thực phẩm đó (bảng gốc không có số liệu).
+    </p>
+    <app-nutrient-table [values]="values()" valueLabel="Tổng" [notes]="notes()" />
+  </section>
+}

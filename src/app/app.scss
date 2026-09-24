@@ -1,0 +1,105 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+
+  &:focus {
+    left: 16px;
+    top: 8px;
+    z-index: 10;
+    background: var(--surface);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+  }
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1.5rem;
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  color: var(--text);
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.4rem 0.75rem;
+    border-radius: 999px;
+    color: var(--muted);
+    font-size: 0.9rem;
+    white-space: nowrap;
+
+    &:hover {
+      color: var(--text);
+      background: var(--surface-2);
+      text-decoration: none;
+    }
+
+    &.active {
+      color: var(--primary);
+      background: var(--primary-soft);
+      font-weight: 600;
+    }
+  }
+}
+
+.count {
+  min-width: 1.25rem;
+  padding: 0 0.35rem;
+  border-radius: 999px;
+  background: var(--primary);
+  color: var(--primary-contrast);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+main {
+  flex: 1;
+  padding-bottom: 2rem;
+}
+
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 1rem 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+
+  p {
+    margin: 0.25rem 0;
+  }
+}

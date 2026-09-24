@@ -1,0 +1,104 @@
+@if (food(); as food) {
+  <nav class="breadcrumb small" aria-label="Breadcrumb">
+    <a routerLink="/">Thực phẩm</a> /
+    <a routerLink="/" [queryParams]="{ group: food.group }">{{ group()?.name }}</a>
+  </nav>
+
+  <div class="page-header">
+    <h1>{{ food.name }}</h1>
+    <p>{{ food.nameEnglish }} · Mã {{ food.id }}</p>
+  </div>
+
+  <div class="layout">
+    <div class="stack">
+      <section class="card stack">
+        <div class="row">
+          <label class="field">
+            Khối lượng (g)
+            <input
+              #gramsInput
+              type="number"
+              class="input input-grams"
+              min="0"
+              max="10000"
+              step="10"
+              [value]="grams()"
+              (input)="setGrams(gramsInput.value)"
+            />
+          </label>
+          <div class="chips quick" role="group" aria-label="Chọn nhanh khối lượng">
+            @for (g of quickGrams; track g) {
+              <button type="button" class="chip" [class.active]="grams() === g" (click)="grams.set(g)">
+                {{ g }} g
+              </button>
+            }
+          </div>
+        </div>
+
+        <div class="tiles">
+          @for (item of summary(); track item.nutrient.key) {
+            <div class="tile">
+              <div class="tile-label">{{ item.nutrient.name }}</div>
+              <div class="tile-value">
+                {{ item.value | num }}<span class="tile-unit">{{ item.nutrient.unit }}</span>
+              </div>
+            </div>
+          }
+        </div>
+
+        <div>
+          <h2 class="small muted">Năng lượng đến từ</h2>
+          <app-energy-bar [split]="split()" />
+        </div>
+
+        <div class="row">
+          <button type="button" class="btn btn-primary" [disabled]="!(grams() > 0)" (click)="addToMeal()">
+            {{ added.current() === food.id ? '✓ Đã thêm vào bữa ăn' : '+ Thêm ' + grams() + ' g vào bữa ăn' }}
+          </button>
+          <button
+            type="button"
+            class="btn"
+            [class.btn-active]="compare.has(food.id)"
+            [disabled]="!compare.has(food.id) && compare.isFull()"
+            (click)="compare.toggle(food.id)"
+          >
+            {{ compare.has(food.id) ? '✓ Đang so sánh' : '+ So sánh' }}
+          </button>
+          @if (compare.count() > 1 && compare.has(food.id)) {
+            <a routerLink="/compare" class="btn">Xem so sánh →</a>
+          }
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Thành phần dinh dưỡng trong {{ grams() | num }} g</h2>
+        @if (missingCount()) {
+          <p class="muted small">
+            “—” là không có số liệu trong bảng gốc ({{ missingCount() }} chỉ số), không có nghĩa là bằng 0.
+          </p>
+        }
+        <app-nutrient-table [values]="values()" [valueLabel]="(grams() | num) + ' g'" />
+      </section>
+    </div>
+
+    <aside class="card side">
+      <h2>Cùng nhóm {{ group()?.name }}</h2>
+      <ul>
+        @for (other of sameGroup(); track other.id) {
+          <li>
+            <a [routerLink]="['/foods', other.id]">{{ other.name }}</a>
+            <span class="muted small">{{ other.nutrients['kCal'] | num }} kcal</span>
+          </li>
+        } @empty {
+          <li class="muted">Không có thực phẩm khác.</li>
+        }
+      </ul>
+    </aside>
+  </div>
+} @else {
+  <div class="card empty-state">
+    <h1>Không tìm thấy thực phẩm</h1>
+    <p>Mã “{{ id() }}” không có trong dữ liệu.</p>
+    <a routerLink="/" class="btn btn-primary">Về danh sách thực phẩm</a>
+  </div>
+}
