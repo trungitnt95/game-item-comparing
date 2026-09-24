@@ -1,0 +1,42 @@
+[
+  {
+    "id": "general",
+    "name": "Thành phần chính",
+    "nameEnglish": "Proximates"
+  },
+  {
+    "id": "sugar",
+    "name": "Đường",
+    "nameEnglish": "Sugars"
+  },
+  {
+    "id": "mineral",
+    "name": "Khoáng chất",
+    "nameEnglish": "Minerals"
+  },
+  {
+    "id": "vitamin",
+    "name": "Vitamin",
+    "nameEnglish": "Vitamins"
+  },
+  {
+    "id": "carotenoid",
+    "name": "Carotenoid",
+    "nameEnglish": "Carotenoids"
+  },
+  {
+    "id": "other",
+    "name": "Hợp chất khác",
+    "nameEnglish": "Other compounds"
+  },
+  {
+    "id": "fattyAcid",
+    "name": "Axit béo",
+    "nameEnglish": "Fatty acids"
+  },
+  {
+    "id": "aminoAcid",
+    "name": "Axit amin",
+    "nameEnglish": "Amino acids"
+  }
+]

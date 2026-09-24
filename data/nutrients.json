@@ -1,0 +1,611 @@
+[
+  {
+    "key": "kCal",
+    "name": "Năng lượng",
+    "nameEnglish": "Energy",
+    "unit": "kcal",
+    "category": "general"
+  },
+  {
+    "key": "kJ",
+    "name": "Năng lượng (kJ)",
+    "nameEnglish": "Energy (kJ)",
+    "unit": "kJ",
+    "category": "general"
+  },
+  {
+    "key": "water",
+    "name": "Nước",
+    "nameEnglish": "Water",
+    "unit": "g",
+    "category": "general"
+  },
+  {
+    "key": "protein",
+    "name": "Protein (chất đạm)",
+    "nameEnglish": "Protein",
+    "unit": "g",
+    "category": "general"
+  },
+  {
+    "key": "lipit",
+    "name": "Lipid (chất béo)",
+    "nameEnglish": "Fat",
+    "unit": "g",
+    "category": "general"
+  },
+  {
+    "key": "glucid",
+    "name": "Glucid (tinh bột, đường)",
+    "nameEnglish": "Carbohydrate",
+    "unit": "g",
+    "category": "general"
+  },
+  {
+    "key": "celluloza",
+    "name": "Chất xơ",
+    "nameEnglish": "Fiber",
+    "unit": "g",
+    "category": "general"
+  },
+  {
+    "key": "ash",
+    "name": "Tro",
+    "nameEnglish": "Ash",
+    "unit": "g",
+    "category": "general"
+  },
+  {
+    "key": "sugar",
+    "name": "Tổng đường",
+    "nameEnglish": "Total sugars",
+    "unit": "g",
+    "category": "sugar"
+  },
+  {
+    "key": "galactoza",
+    "name": "Galactoza",
+    "nameEnglish": "Galactose",
+    "unit": "g",
+    "category": "sugar"
+  },
+  {
+    "key": "maltoza",
+    "name": "Maltoza",
+    "nameEnglish": "Maltose",
+    "unit": "g",
+    "category": "sugar"
+  },
+  {
+    "key": "lactoza",
+    "name": "Lactoza",
+    "nameEnglish": "Lactose",
+    "unit": "g",
+    "category": "sugar"
+  },
+  {
+    "key": "fructoza",
+    "name": "Fructoza",
+    "nameEnglish": "Fructose",
+    "unit": "g",
+    "category": "sugar"
+  },
+  {
+    "key": "glucoza",
+    "name": "Glucoza",
+    "nameEnglish": "Glucose",
+    "unit": "g",
+    "category": "sugar"
+  },
+  {
+    "key": "sacaroza",
+    "name": "Sacaroza",
+    "nameEnglish": "Sucrose",
+    "unit": "g",
+    "category": "sugar"
+  },
+  {
+    "key": "calci",
+    "name": "Canxi",
+    "nameEnglish": "Calcium",
+    "unit": "mg",
+    "category": "mineral"
+  },
+  {
+    "key": "sat",
+    "name": "Sắt",
+    "nameEnglish": "Iron",
+    "unit": "mg",
+    "category": "mineral"
+  },
+  {
+    "key": "magie",
+    "name": "Magie",
+    "nameEnglish": "Magnesium",
+    "unit": "mg",
+    "category": "mineral"
+  },
+  {
+    "key": "mangan",
+    "name": "Mangan",
+    "nameEnglish": "Manganese",
+    "unit": "mg",
+    "category": "mineral"
+  },
+  {
+    "key": "phospho",
+    "name": "Phốt pho",
+    "nameEnglish": "Phosphorus",
+    "unit": "mg",
+    "category": "mineral"
+  },
+  {
+    "key": "kali",
+    "name": "Kali",
+    "nameEnglish": "Potassium",
+    "unit": "mg",
+    "category": "mineral"
+  },
+  {
+    "key": "natri",
+    "name": "Natri",
+    "nameEnglish": "Sodium",
+    "unit": "mg",
+    "category": "mineral"
+  },
+  {
+    "key": "kem",
+    "name": "Kẽm",
+    "nameEnglish": "Zinc",
+    "unit": "mg",
+    "category": "mineral"
+  },
+  {
+    "key": "dong",
+    "name": "Đồng",
+    "nameEnglish": "Copper",
+    "unit": "μg",
+    "category": "mineral"
+  },
+  {
+    "key": "selen",
+    "name": "Selen",
+    "nameEnglish": "Selenium",
+    "unit": "μg",
+    "category": "mineral"
+  },
+  {
+    "key": "vitaminC",
+    "name": "Vitamin C",
+    "nameEnglish": "Vitamin C",
+    "unit": "mg",
+    "category": "vitamin"
+  },
+  {
+    "key": "vitaminB1",
+    "name": "Vitamin B1 (thiamin)",
+    "nameEnglish": "Vitamin B1 (thiamin)",
+    "unit": "mg",
+    "category": "vitamin"
+  },
+  {
+    "key": "vitaminB2",
+    "name": "Vitamin B2 (riboflavin)",
+    "nameEnglish": "Vitamin B2 (riboflavin)",
+    "unit": "mg",
+    "category": "vitamin"
+  },
+  {
+    "key": "vitaminPP",
+    "name": "Vitamin PP (niacin)",
+    "nameEnglish": "Vitamin PP (niacin)",
+    "unit": "mg",
+    "category": "vitamin"
+  },
+  {
+    "key": "vitaminB5",
+    "name": "Vitamin B5 (axit pantothenic)",
+    "nameEnglish": "Vitamin B5 (pantothenic acid)",
+    "unit": "mg",
+    "category": "vitamin"
+  },
+  {
+    "key": "vitaminB6",
+    "name": "Vitamin B6",
+    "nameEnglish": "Vitamin B6",
+    "unit": "mg",
+    "category": "vitamin"
+  },
+  {
+    "key": "folat",
+    "name": "Folat",
+    "nameEnglish": "Folate",
+    "unit": "μg",
+    "category": "vitamin"
+  },
+  {
+    "key": "vitaminB9",
+    "name": "Vitamin B9 (axit folic)",
+    "nameEnglish": "Vitamin B9 (folic acid)",
+    "unit": "μg",
+    "category": "vitamin"
+  },
+  {
+    "key": "vitaminH",
+    "name": "Vitamin H (biotin)",
+    "nameEnglish": "Vitamin H (biotin)",
+    "unit": "μg",
+    "category": "vitamin"
+  },
+  {
+    "key": "vitaminB12",
+    "name": "Vitamin B12",
+    "nameEnglish": "Vitamin B12",
+    "unit": "μg",
+    "category": "vitamin"
+  },
+  {
+    "key": "vitaminA",
+    "name": "Vitamin A (retinol)",
+    "nameEnglish": "Vitamin A (retinol)",
+    "unit": "μg",
+    "category": "vitamin"
+  },
+  {
+    "key": "vitaminD",
+    "name": "Vitamin D",
+    "nameEnglish": "Vitamin D",
+    "unit": "μg",
+    "category": "vitamin"
+  },
+  {
+    "key": "vitaminE",
+    "name": "Vitamin E",
+    "nameEnglish": "Vitamin E",
+    "unit": "mg",
+    "category": "vitamin"
+  },
+  {
+    "key": "vitaminK",
+    "name": "Vitamin K",
+    "nameEnglish": "Vitamin K",
+    "unit": "μg",
+    "category": "vitamin"
+  },
+  {
+    "key": "betaCaroten",
+    "name": "Beta-caroten",
+    "nameEnglish": "Beta-carotene",
+    "unit": "μg",
+    "category": "carotenoid"
+  },
+  {
+    "key": "alphaCaroten",
+    "name": "Alpha-caroten",
+    "nameEnglish": "Alpha-carotene",
+    "unit": "μg",
+    "category": "carotenoid"
+  },
+  {
+    "key": "betaCryptoXanthin",
+    "name": "Beta-cryptoxanthin",
+    "nameEnglish": "Beta-cryptoxanthin",
+    "unit": "μg",
+    "category": "carotenoid"
+  },
+  {
+    "key": "lycopen",
+    "name": "Lycopen",
+    "nameEnglish": "Lycopene",
+    "unit": "μg",
+    "category": "carotenoid"
+  },
+  {
+    "key": "luteinZeaxanthin",
+    "name": "Lutein + zeaxanthin",
+    "nameEnglish": "Lutein + zeaxanthin",
+    "unit": "μg",
+    "category": "carotenoid"
+  },
+  {
+    "key": "purin",
+    "name": "Purin",
+    "nameEnglish": "Purine",
+    "unit": "mg",
+    "category": "other"
+  },
+  {
+    "key": "phytosterol",
+    "name": "Phytosterol",
+    "nameEnglish": "Phytosterol",
+    "unit": "mg",
+    "category": "other"
+  },
+  {
+    "key": "totalIsoflavon",
+    "name": "Tổng isoflavon",
+    "nameEnglish": "Total isoflavones",
+    "unit": "mg",
+    "category": "other"
+  },
+  {
+    "key": "daidzein",
+    "name": "Daidzein",
+    "nameEnglish": "Daidzein",
+    "unit": "mg",
+    "category": "other"
+  },
+  {
+    "key": "genistein",
+    "name": "Genistein",
+    "nameEnglish": "Genistein",
+    "unit": "mg",
+    "category": "other"
+  },
+  {
+    "key": "glycetin",
+    "name": "Glycitein",
+    "nameEnglish": "Glycitein",
+    "unit": "mg",
+    "category": "other"
+  },
+  {
+    "key": "totalSaturatedFattyAcid",
+    "name": "Tổng axit béo no",
+    "nameEnglish": "Total saturated fatty acids",
+    "unit": "g",
+    "category": "fattyAcid"
+  },
+  {
+    "key": "palmitic",
+    "name": "Axit palmitic (C16:0)",
+    "nameEnglish": "Palmitic acid (C16:0)",
+    "unit": "g",
+    "category": "fattyAcid"
+  },
+  {
+    "key": "margaric",
+    "name": "Axit margaric (C17:0)",
+    "nameEnglish": "Margaric acid (C17:0)",
+    "unit": "g",
+    "category": "fattyAcid"
+  },
+  {
+    "key": "stearic",
+    "name": "Axit stearic (C18:0)",
+    "nameEnglish": "Stearic acid (C18:0)",
+    "unit": "g",
+    "category": "fattyAcid"
+  },
+  {
+    "key": "arachidic",
+    "name": "Axit arachidic (C20:0)",
+    "nameEnglish": "Arachidic acid (C20:0)",
+    "unit": "g",
+    "category": "fattyAcid"
+  },
+  {
+    "key": "behenic",
+    "name": "Axit behenic (C22:0)",
+    "nameEnglish": "Behenic acid (C22:0)",
+    "unit": "g",
+    "category": "fattyAcid"
+  },
+  {
+    "key": "lignoceric",
+    "name": "Axit lignoceric (C24:0)",
+    "nameEnglish": "Lignoceric acid (C24:0)",
+    "unit": "g",
+    "category": "fattyAcid"
+  },
+  {
+    "key": "totalMonounsaturatedFattyAcid",
+    "name": "Tổng axit béo không no một nối đôi",
+    "nameEnglish": "Total monounsaturated fatty acids",
+    "unit": "g",
+    "category": "fattyAcid"
+  },
+  {
+    "key": "myristoleic",
+    "name": "Axit myristoleic (C14:1)",
+    "nameEnglish": "Myristoleic acid (C14:1)",
+    "unit": "g",
+    "category": "fattyAcid"
+  },
+  {
+    "key": "palmitoleic",
+    "name": "Axit palmitoleic (C16:1)",
+    "nameEnglish": "Palmitoleic acid (C16:1)",
+    "unit": "g",
+    "category": "fattyAcid"
+  },
+  {
+    "key": "oleic",
+    "name": "Axit oleic (C18:1)",
+    "nameEnglish": "Oleic acid (C18:1)",
+    "unit": "g",
+    "category": "fattyAcid"
+  },
+  {
+    "key": "totalPolyunsaturatedFattyAcid",
+    "name": "Tổng axit béo không no nhiều nối đôi",
+    "nameEnglish": "Total polyunsaturated fatty acids",
+    "unit": "g",
+    "category": "fattyAcid"
+  },
+  {
+    "key": "linoleic",
+    "name": "Axit linoleic (C18:2, omega-6)",
+    "nameEnglish": "Linoleic acid (C18:2, omega-6)",
+    "unit": "g",
+    "category": "fattyAcid"
+  },
+  {
+    "key": "linolenic",
+    "name": "Axit linolenic (C18:3, omega-3)",
+    "nameEnglish": "Linolenic acid (C18:3, omega-3)",
+    "unit": "g",
+    "category": "fattyAcid"
+  },
+  {
+    "key": "arachidonic",
+    "name": "Axit arachidonic (C20:4)",
+    "nameEnglish": "Arachidonic acid (C20:4)",
+    "unit": "g",
+    "category": "fattyAcid"
+  },
+  {
+    "key": "eicosapentaenoic",
+    "name": "EPA (C20:5, omega-3)",
+    "nameEnglish": "EPA (C20:5, omega-3)",
+    "unit": "g",
+    "category": "fattyAcid"
+  },
+  {
+    "key": "docosahexaenoic",
+    "name": "DHA (C22:6, omega-3)",
+    "nameEnglish": "DHA (C22:6, omega-3)",
+    "unit": "g",
+    "category": "fattyAcid"
+  },
+  {
+    "key": "totalTransFattyAcid",
+    "name": "Tổng axit béo trans",
+    "nameEnglish": "Total trans fatty acids",
+    "unit": "g",
+    "category": "fattyAcid"
+  },
+  {
+    "key": "cholesterol",
+    "name": "Cholesterol",
+    "nameEnglish": "Cholesterol",
+    "unit": "mg",
+    "category": "fattyAcid"
+  },
+  {
+    "key": "lysin",
+    "name": "Lysin",
+    "nameEnglish": "Lysine",
+    "unit": "mg",
+    "category": "aminoAcid"
+  },
+  {
+    "key": "methionin",
+    "name": "Methionin",
+    "nameEnglish": "Methionine",
+    "unit": "mg",
+    "category": "aminoAcid"
+  },
+  {
+    "key": "tryptophan",
+    "name": "Tryptophan",
+    "nameEnglish": "Tryptophan",
+    "unit": "mg",
+    "category": "aminoAcid"
+  },
+  {
+    "key": "phenylalanin",
+    "name": "Phenylalanin",
+    "nameEnglish": "Phenylalanine",
+    "unit": "mg",
+    "category": "aminoAcid"
+  },
+  {
+    "key": "threonin",
+    "name": "Threonin",
+    "nameEnglish": "Threonine",
+    "unit": "mg",
+    "category": "aminoAcid"
+  },
+  {
+    "key": "valin",
+    "name": "Valin",
+    "nameEnglish": "Valine",
+    "unit": "mg",
+    "category": "aminoAcid"
+  },
+  {
+    "key": "leucin",
+    "name": "Leucin",
+    "nameEnglish": "Leucine",
+    "unit": "mg",
+    "category": "aminoAcid"
+  },
+  {
+    "key": "isoleucin",
+    "name": "Isoleucin",
+    "nameEnglish": "Isoleucine",
+    "unit": "mg",
+    "category": "aminoAcid"
+  },
+  {
+    "key": "arginin",
+    "name": "Arginin",
+    "nameEnglish": "Arginine",
+    "unit": "mg",
+    "category": "aminoAcid"
+  },
+  {
+    "key": "histidin",
+    "name": "Histidin",
+    "nameEnglish": "Histidine",
+    "unit": "mg",
+    "category": "aminoAcid"
+  },
+  {
+    "key": "cystin",
+    "name": "Cystin",
+    "nameEnglish": "Cystine",
+    "unit": "mg",
+    "category": "aminoAcid"
+  },
+  {
+    "key": "tyrosin",
+    "name": "Tyrosin",
+    "nameEnglish": "Tyrosine",
+    "unit": "mg",
+    "category": "aminoAcid"
+  },
+  {
+    "key": "alanin",
+    "name": "Alanin",
+    "nameEnglish": "Alanine",
+    "unit": "mg",
+    "category": "aminoAcid"
+  },
+  {
+    "key": "acidAspartic",
+    "name": "Axit aspartic",
+    "nameEnglish": "Aspartic acid",
+    "unit": "mg",
+    "category": "aminoAcid"
+  },
+  {
+    "key": "acidGlutamic",
+    "name": "Axit glutamic",
+    "nameEnglish": "Glutamic acid",
+    "unit": "mg",
+    "category": "aminoAcid"
+  },
+  {
+    "key": "glycin",
+    "name": "Glycin",
+    "nameEnglish": "Glycine",
+    "unit": "mg",
+    "category": "aminoAcid"
+  },
+  {
+    "key": "prolin",
+    "name": "Prolin",
+    "nameEnglish": "Proline",
+    "unit": "mg",
+    "category": "aminoAcid"
+  },
+  {
+    "key": "serin",
+    "name": "Serin",
+    "nameEnglish": "Serine",
+    "unit": "mg",
+    "category": "aminoAcid"
+  }
+]

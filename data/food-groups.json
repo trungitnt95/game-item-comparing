@@ -1,0 +1,57 @@
+[
+  {
+    "id": "NGU_COC",
+    "name": "Ngũ cốc",
+    "nameEnglish": "Cereals"
+  },
+  {
+    "id": "KHOAI_CU",
+    "name": "Khoai củ",
+    "nameEnglish": "Starchy roots and tubers"
+  },
+  {
+    "id": "HAT",
+    "name": "Hạt, đậu đỗ",
+    "nameEnglish": "Seeds and legumes"
+  },
+  {
+    "id": "RAU_CU",
+    "name": "Rau củ",
+    "nameEnglish": "Vegetables"
+  },
+  {
+    "id": "QUA",
+    "name": "Quả",
+    "nameEnglish": "Fruits"
+  },
+  {
+    "id": "DAU_MO_BO",
+    "name": "Dầu, mỡ, bơ",
+    "nameEnglish": "Fats and oils"
+  },
+  {
+    "id": "THIT",
+    "name": "Thịt",
+    "nameEnglish": "Meat"
+  },
+  {
+    "id": "THUY_SAN",
+    "name": "Thủy sản",
+    "nameEnglish": "Fish and seafood"
+  },
+  {
+    "id": "TRUNG",
+    "name": "Trứng",
+    "nameEnglish": "Eggs"
+  },
+  {
+    "id": "SUA",
+    "name": "Sữa",
+    "nameEnglish": "Milk and dairy"
+  },
+  {
+    "id": "NUOC",
+    "name": "Nước chấm, đồ uống",
+    "nameEnglish": "Sauces and beverages"
+  }
+]

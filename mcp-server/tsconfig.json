@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+    "target": "ES2023",
+    "module": "preserve",
+    "types": ["node"],
+    "noEmit": true,
+    "paths": {
+      "@nutrition/core": ["../libs/nutrition/src/index.ts"]
+    }
+  },
+  "include": ["src/**/*.ts"]
+}

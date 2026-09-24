@@ -1,0 +1,22 @@
+.controls {
+  margin-bottom: 1rem;
+}
+
+.food-col {
+  min-width: 7rem;
+  white-space: normal;
+}
+
+.remove {
+  margin-left: 0.25rem;
+  border: none;
+  background: none;
+  color: var(--muted);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--danger);
+  }
+}

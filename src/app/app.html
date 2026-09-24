@@ -1,0 +1,41 @@
+<a class="skip-link" href="#main">Bỏ qua điều hướng</a>
+<header class="site-header">
+  <div class="container header-inner">
+    <a routerLink="/" class="brand">
+      <img src="favicon.svg" alt="" width="28" height="28" />
+      <span>{{ appName }}</span>
+    </a>
+    <nav aria-label="Điều hướng chính">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Thực phẩm</a>
+      <a routerLink="/nutrients" routerLinkActive="active">Chất dinh dưỡng</a>
+      <a routerLink="/compare" routerLinkActive="active">
+        So sánh
+        @if (compare.count()) {
+          <span class="count">{{ compare.count() }}</span>
+        }
+      </a>
+      <a routerLink="/meal" routerLinkActive="active">
+        Bữa ăn
+        @if (meal.count()) {
+          <span class="count">{{ meal.count() }}</span>
+        }
+      </a>
+      <a routerLink="/about" routerLinkActive="active">Giới thiệu &amp; AI</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="container">
+  <router-outlet />
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>
+      Nguồn dữ liệu: {{ dataSource.name }} – {{ dataSource.publisher }}. {{ dataSource.basis }}.
+    </p>
+    <p>
+      Thông tin chỉ mang tính tham khảo, không thay thế tư vấn của bác sĩ hoặc chuyên gia dinh dưỡng.
+    </p>
+  </div>
+</footer>

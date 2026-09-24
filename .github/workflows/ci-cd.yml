@@ -1,0 +1,68 @@
+name: CI / Deploy GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# One deployment at a time; never cancel a deployment that is already running.
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: read
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      - name: Test (shared library, MCP server, web)
+        run: npm test
+
+      - name: Type-check MCP server
+        run: npm run typecheck:mcp
+
+      - name: Resolve Pages base path
+        id: pages
+        if: github.event_name != 'pull_request'
+        uses: actions/configure-pages@v6
+
+      - name: Build MCP server + web app
+        # base_path is "/<repo>" for project pages, or "" with a custom domain.
+        run: npm run build -- --base-href "${{ steps.pages.outputs.base_path || format('/{0}', github.event.repository.name) }}/"
+
+      - name: SPA fallback for deep links
+        run: cp dist/nutrition-health/browser/index.html dist/nutrition-health/browser/404.html
+
+      - uses: actions/upload-pages-artifact@v5
+        if: github.event_name != 'pull_request'
+        with:
+          path: dist/nutrition-health/browser
+
+  deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

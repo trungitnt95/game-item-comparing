@@ -1,0 +1,89 @@
+<div class="page-header">
+  <h1>Tra cứu theo chất dinh dưỡng</h1>
+  <p>Thực phẩm nào giàu (hoặc ít) một chất nhất? Giá trị tính trên 100 g phần ăn được.</p>
+</div>
+
+<section class="card stack filters" aria-label="Chọn chất dinh dưỡng">
+  <div class="chips" role="group" aria-label="Chọn nhanh">
+    @for (item of quickPicks; track item.key) {
+      <button
+        type="button"
+        class="chip"
+        [class.active]="nutrient().key === item.key"
+        (click)="select({ n: item.key })"
+      >
+        {{ item.name }}
+      </button>
+    }
+  </div>
+  <div class="row">
+    <label class="field grow">
+      Chất dinh dưỡng
+      <select #nutrientSelect class="select" (change)="select({ n: nutrientSelect.value })">
+        @for (section of sections; track section.category.id) {
+          <optgroup [label]="section.category.name">
+            @for (item of section.nutrients; track item.key) {
+              <option [value]="item.key" [selected]="item.key === nutrient().key">
+                {{ item.name }} ({{ item.unit }})
+              </option>
+            }
+          </optgroup>
+        }
+      </select>
+    </label>
+    <label class="field">
+      Nhóm thực phẩm
+      <select #groupSelect class="select" (change)="select({ group: groupSelect.value || null })">
+        <option value="" [selected]="!groupId()">Tất cả nhóm</option>
+        @for (g of catalog.groups; track g.id) {
+          <option [value]="g.id" [selected]="groupId() === g.id">{{ g.name }}</option>
+        }
+      </select>
+    </label>
+    <div class="field">
+      Thứ tự
+      <div class="chips">
+        <button type="button" class="chip" [class.active]="!ascending()" (click)="select({ order: null })">
+          Nhiều nhất
+        </button>
+        <button type="button" class="chip" [class.active]="ascending()" (click)="select({ order: 'asc' })">
+          Ít nhất
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="card">
+  <h2>
+    {{ nutrient().name }} <span class="muted small">({{ nutrient().unit }} / 100 g)</span>
+  </h2>
+  <ol class="ranking">
+    @for (item of ranking(); track item.food.id; let i = $index) {
+      <li>
+        <span class="rank muted">{{ i + 1 }}</span>
+        <div class="info">
+          <div class="row">
+            <a [routerLink]="['/foods', item.food.id]">{{ item.food.name }}</a>
+            <span class="muted small">{{ groupName(item.food.group) }}</span>
+            <span class="spacer"></span>
+            <strong class="value">{{ item.value | num }} {{ nutrient().unit }}</strong>
+          </div>
+          <div class="track" aria-hidden="true">
+            <span [style.width.%]="barWidth(item.value)"></span>
+          </div>
+        </div>
+      </li>
+    } @empty {
+      <li class="muted">Không có thực phẩm nào có số liệu cho chất này.</li>
+    }
+  </ol>
+  @if (withoutData().length) {
+    <p class="muted small">
+      Không có số liệu ({{ withoutData().length }}):
+      @for (food of withoutData(); track food.id; let last = $last) {
+        <a [routerLink]="['/foods', food.id]">{{ food.name }}</a>{{ last ? '' : ', ' }}
+      }
+    </p>
+  }
+</section>

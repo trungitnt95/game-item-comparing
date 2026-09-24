@@ -1,0 +1,84 @@
+<div class="page-header">
+  <h1>So sánh thực phẩm</h1>
+  <p>Đặt tối đa {{ maxCompare }} thực phẩm cạnh nhau, trên 100 g. Ô tô màu là giá trị cao nhất.</p>
+</div>
+
+<section class="card stack controls">
+  <div class="row">
+    <app-food-picker
+      id="compare-picker"
+      placeholder="+ Thêm thực phẩm để so sánh…"
+      [exclude]="foodIds()"
+      [disabled]="store.isFull()"
+      (picked)="store.add($event)"
+    />
+    <span class="spacer"></span>
+    @if (store.count()) {
+      <button type="button" class="btn btn-sm btn-danger" (click)="store.clear()">Xoá tất cả</button>
+    }
+  </div>
+  <div class="chips" role="group" aria-label="Nhóm chất dinh dưỡng">
+    @for (c of catalog.categories; track c.id) {
+      <button type="button" class="chip" [class.active]="category() === c.id" (click)="category.set(c.id)">
+        {{ c.name }}
+      </button>
+    }
+    <button type="button" class="chip" [class.active]="category() === all" (click)="category.set(all)">
+      Tất cả
+    </button>
+  </div>
+</section>
+
+@if (store.count() === 0) {
+  <div class="card empty-state">
+    <p>Chưa có thực phẩm nào. Chọn ở ô phía trên, hoặc bấm “+ So sánh” ở trang tra cứu.</p>
+    <a routerLink="/" class="btn btn-primary">Đi tới tra cứu thực phẩm</a>
+  </div>
+} @else {
+  <section class="card">
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Chất dinh dưỡng</th>
+            @for (food of store.foods(); track food.id) {
+              <th scope="col" class="num food-col">
+                <a [routerLink]="['/foods', food.id]">{{ food.name }}</a>
+                <button
+                  type="button"
+                  class="remove"
+                  [attr.aria-label]="'Bỏ ' + food.name + ' khỏi so sánh'"
+                  (click)="store.remove(food.id)"
+                >
+                  ×
+                </button>
+              </th>
+            }
+          </tr>
+        </thead>
+        <tbody>
+          @for (section of sections(); track section.category.id) {
+            @if (category() === all) {
+              <tr class="category-row">
+                <th scope="colgroup" [attr.colspan]="store.count() + 1">{{ section.category.name }}</th>
+              </tr>
+            }
+            @for (row of section.rows; track row.nutrient.key) {
+              <tr>
+                <td>
+                  {{ row.nutrient.name }} <span class="muted small">({{ row.nutrient.unit }})</span>
+                </td>
+                @for (value of row.values; track $index) {
+                  <td class="num" [class.best]="$index === row.highestIndex">{{ value | num }}</td>
+                }
+              </tr>
+            }
+          }
+        </tbody>
+      </table>
+    </div>
+    @if (store.count() === 1) {
+      <p class="muted small">Thêm ít nhất một thực phẩm nữa để thấy giá trị cao nhất.</p>
+    }
+  </section>
+}

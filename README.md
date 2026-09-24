@@ -1,75 +1,139 @@
-# ==================== GameItemComparing ============================
+# Dinh Dưỡng & Sức Khoẻ
 
-## Install
-nvm install 18.14.1
-npm install -g @angular/cli
-npm install -g firebase-tools
+Ứng dụng web **tra cứu thành phần dinh dưỡng thực phẩm Việt Nam**, kèm **MCP server** để các trợ lý AI
+(Claude, …) truy vấn cùng bộ dữ liệu. Chỉ để tra cứu: không đăng nhập, không backend lưu trữ, dữ liệu
+đóng gói sẵn trong code.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.0.
+- Web: Angular 22 (standalone, signals, zoneless), deploy tĩnh lên **GitHub Pages**.
+- MCP server: Node.js, `@modelcontextprotocol/sdk`, chạy **stdio** (máy cá nhân) hoặc **Streamable HTTP** (host bất kỳ).
+- Dữ liệu: *Bảng thành phần thực phẩm Việt Nam (VTN_FCT_2007) – Viện Dinh dưỡng Quốc gia*, giá trị trên 100 g phần ăn được.
 
-## Build project
-ng build ## npm start build
+> Thông tin chỉ mang tính tham khảo, không thay thế tư vấn của bác sĩ hoặc chuyên gia dinh dưỡng.
 
+## Tính năng
 
-## Init firebase, first time only
-firebase init
+| Trang | Mô tả |
+| --- | --- |
+| Thực phẩm (`/`) | Tìm theo tên (có/không dấu, tiếng Anh), lọc theo nhóm. URL chia sẻ được (`?q=ca&group=THUY_SAN`). |
+| Chi tiết (`/foods/:id`) | 87 chỉ số theo nhóm chất, quy đổi theo gram, tỉ lệ năng lượng protein/béo/glucid. |
+| Chất dinh dưỡng (`/nutrients`) | Xếp hạng thực phẩm giàu/ít một chất nhất (`?n=vitaminC&order=asc`). |
+| So sánh (`/compare`) | Tối đa 6 thực phẩm cạnh nhau, tô màu giá trị cao nhất. |
+| Bữa ăn (`/meal`) | Cộng dồn dinh dưỡng theo khối lượng; ghi rõ thực phẩm thiếu số liệu. Lưu trên trình duyệt. |
+| Giới thiệu & AI (`/about`) | Nguồn dữ liệu, hướng dẫn kết nối MCP. |
 
-- Are you ready to proceed? Yes
-- Hosting: Configure files for Firebase Hosting and (optionally) set up GitHub Action deploys
-- Use an existing project.
-  Select a Firebase project in Firebase console.
-- What do you want to use as your public directory? dist/game-item-comparing
-- Configure as a single-page app (rewrite all urls to /index.html)? (y/N) yes
-- Set up automatic builds and deploys with GitHub? (y/N) Y to go to config Github deployment, N if no need
-- File build/index.html already exists. Overwrite? (y/N) No
-- Visit this URL on this device to log in:...
-- For which GitHub repository would you like to set up a GitHub workflow? (format: user/repository) trungitnt95/base
-- Set up the workflow to run a build script before every deploy? (y/N) N
-- Set up automatic deployment to your site's live channel when a PR is merged? n
-- Created workflow file C:\TRUNG\projects\base\.github/workflows/firebase-hosting-pull-request.yml
-- Set up automatic deployment to your site's live channel when a PR is merged? (Y/n) n
+“—” nghĩa là bảng gốc **không có số liệu** (không phải bằng 0); các phép tính không coi nó là 0.
 
-## every deployment
-ng build ## npm start build
-firebase deploy --only hosting
+## Cấu trúc
 
+```
+data/                 Master data (JSON) – nguồn dữ liệu duy nhất cho web và MCP
+  foods.json            41 thực phẩm, giá trị/100 g (null = không có số liệu)
+  nutrients.json        87 chỉ số: key, tên Việt/Anh, đơn vị, nhóm chất
+  food-groups.json      11 nhóm thực phẩm
+  nutrient-categories.json
+libs/nutrition/       Logic dùng chung, không phụ thuộc framework (tìm kiếm, xếp hạng, so sánh, tính bữa ăn)
+src/                  Web app Angular
+mcp-server/           MCP server (stdio + HTTP), đóng gói thành 1 file .mjs
+.github/workflows/    CI + deploy GitHub Pages
+```
 
-## server side rendering  (SSR)
-ng add @nguniversal/express-engine
-- it auto creates some files
-- add angularCompilerOptions cofig
-- change target of build path: from dist/game-item-comparing/browser to dist/game-item-comparing
+Web và MCP server cùng import `@nutrition/core` (`libs/nutrition`), nên luôn trả lời giống nhau.
 
-ng run dev:ssr
-ng run server:ssr
+## Phát triển
 
-## Deploy to firebase cloud function (aware COST)
-TODO: Trung
+Yêu cầu Node.js 24 (`nvm use` đọc `.nvmrc`).
 
-## Development server
+```bash
+npm install
+npm start               # web dev server: http://localhost:4200
+npm test                # test thư viện + MCP server (Vitest/Node) và web (ng test)
+npm run build           # build MCP server + web vào dist/nutrition-health/browser
+```
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### Sửa dữ liệu
 
-## Code scaffolding
+Sửa trực tiếp các file trong `data/`. Mỗi thực phẩm phải có đủ mọi key trong `nutrients.json`
+(dùng `null` khi không có số liệu) — `npm test` kiểm tra điều này.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Deploy lên GitHub Pages
 
-## Build
+Workflow `.github/workflows/ci-cd.yml`:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- **Pull request**: chạy test + build.
+- **Push lên `main`** (hoặc chạy tay): test, build với `base-href` đúng của repo, tạo `404.html`
+  (fallback cho deep link của SPA), deploy lên GitHub Pages. Bản build kèm:
+  - `/<repo>/data/*.json` – dữ liệu thô, dùng như API tĩnh chỉ đọc.
+  - `/<repo>/mcp/nutrition-health-mcp.mjs` – MCP server tải về dùng ngay.
 
-## Running unit tests
+Thiết lập một lần trên GitHub:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+1. **Settings → Pages → Build and deployment → Source: GitHub Actions.**
+2. Môi trường `github-pages` mặc định chỉ cho deploy từ **default branch**. Hãy đặt `main` làm default
+   branch (**Settings → General → Default branch**), hoặc thêm `main` vào
+   **Settings → Environments → github-pages → Deployment branches**.
 
-## Running end-to-end tests
+Sau đó mỗi lần merge vào `main` sẽ tự deploy tới `https://<user>.github.io/<repo>/`.
+Đổi tên repo hay dùng custom domain cũng không cần sửa code: base path lấy từ `actions/configure-pages`.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## MCP server cho AI
 
-## Further help
+Các tool (đều chỉ đọc):
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+| Tool | Chức năng |
+| --- | --- |
+| `search_foods` | Tìm thực phẩm theo tên/nhóm, kèm năng lượng và chất chính. |
+| `get_food` | Toàn bộ chỉ số của một thực phẩm, quy đổi theo gram, lọc theo nhóm chất. |
+| `rank_foods_by_nutrient` | Thực phẩm giàu/ít một chất nhất. |
+| `compare_foods` | So sánh 2–10 thực phẩm. |
+| `calculate_meal` | Tổng dinh dưỡng của bữa ăn (thực phẩm + gram). |
+| `list_food_groups`, `list_nutrients` | Danh mục nhóm thực phẩm và chỉ số. |
 
+Thực phẩm nhận id (`"5040"`) hoặc tên (`"ổi"`, `"oi"`, `"guava"`); chất dinh dưỡng nhận key
+(`"vitaminC"`) hoặc tên (`"vitamin C"`, `"canxi"`, `"iron"`).
 
-## Add angular firebase see detail here https://www.bezkoder.com/angular-10-firebase-crud/
-npm install firebase @angular/fire
+### Chạy trên máy (stdio)
+
+```bash
+npm run build:mcp       # -> mcp-server/dist/nutrition-health-mcp.mjs (tự chứa, không cần node_modules)
+```
+
+Hoặc tải file đã build từ trang Pages: `https://<user>.github.io/<repo>/mcp/nutrition-health-mcp.mjs`.
+
+Claude Code:
+
+```bash
+claude mcp add nutrition-health -- node /duong-dan/toi/nutrition-health-mcp.mjs
+```
+
+Claude Desktop (`claude_desktop_config.json`):
+
+```json
+{
+  "mcpServers": {
+    "nutrition-health": {
+      "command": "node",
+      "args": ["/duong-dan/toi/nutrition-health-mcp.mjs"]
+    }
+  }
+}
+```
+
+Kiểm tra bằng MCP Inspector: `npm run inspect -w mcp-server`.
+
+### Chạy dạng HTTP (remote)
+
+GitHub Pages chỉ phục vụ file tĩnh nên không chạy được server. Chế độ HTTP là stateless (không lưu
+phiên), deploy được lên bất kỳ host Node/Docker nào (Render, Fly.io, Cloud Run, VPS…):
+
+```bash
+npm run mcp:http                          # http://127.0.0.1:3000/mcp, health check ở /health
+# hoặc
+docker build -f mcp-server/Dockerfile -t nutrition-health-mcp .
+docker run -p 3000:3000 nutrition-health-mcp
+```
+
+Biến môi trường: `PORT` (3000), `HOST` (127.0.0.1; image Docker dùng 0.0.0.0), `MCP_PATH` (`/mcp`).
+
+```bash
+claude mcp add --transport http nutrition-health https://<host>/mcp
+```
